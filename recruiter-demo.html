@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Restaurant Management Analytics — Portfolio Demo</title>
+  <meta name="description" content="Interactive restaurant management and analytics portfolio demo with fictional sample data.">
+  <style>
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f2eee7}
+    #demo{display:block;width:100%;height:100%;border:0}
+  </style>
+</head>
+<body>
+  <iframe id="demo" src="index.html" title="Restaurant Management Analytics Portfolio Demo"></iframe>
+  <script>
+    (function(){
+      const DEFAULT_DEMO_DATE='2026-08-07';
+      const frame=document.getElementById('demo');
+
+      function initialiseRecruiterView(){
+        let w,d;
+        try{w=frame.contentWindow;d=frame.contentDocument;}catch(e){return false;}
+        if(!w||!d||typeof w.loadDashboard!=='function')return false;
+        const dash=d.getElementById('dashDate');
+        if(!dash)return false;
+
+        ['dashDate','dailyDate','prodDate','staffDate'].forEach(function(id){
+          const el=d.getElementById(id);
+          if(el)el.value=DEFAULT_DEMO_DATE;
+        });
+        try{if(typeof w.syncBusinessDate==='function')w.syncBusinessDate(DEFAULT_DEMO_DATE,'dashDate');}catch(e){}
+        try{w.loadDashboard();}catch(e){return false;}
+        return true;
+      }
+
+      frame.addEventListener('load',function(){
+        let attempts=0;
+        const timer=setInterval(function(){
+          attempts++;
+          if(initialiseRecruiterView()||attempts>100)clearInterval(timer);
+        },100);
+      });
+    })();
+  </script>
+</body>
+</html>

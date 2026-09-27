@@ -1,23 +1,30 @@
 # Restaurant Management & Analytics System — Portfolio Demo
 
-A standalone browser-based demonstration of a restaurant operations and analytics platform.
+**Live demo:** https://dasbudhaditya.github.io/restaurant-management-analytics/
 
-## Features
-- Daily / weekly / monthly / custom management dashboard
-- Product-level sales entry, category analytics and menu-price reconciliation
-- Food and beverage revenue analysis
+A standalone, interactive demonstration of a restaurant operations and management analytics platform. The demo opens with a populated fictional trading day so reviewers can immediately explore the dashboard and then switch between daily, weekly, monthly and custom reporting views.
+
+## What the demo covers
+- Management dashboard with sales, covers, average spend, labour cost, labour %, overtime and budget KPIs
+- Food and beverage revenue analysis by menu category
+- Product-level sales entry, search, menu-price calculation and reconciliation
 - Daily Z-report entry and historical lookup
-- Staff hours, overtime and labour-cost analytics
-- Current-month payroll accrual
-- ROTA management
+- Staff clock-in / clock-out entry with overtime calculation
+- Staff performance, overtime spend and current-month payroll accrual
+- Weekly ROTA management with fictional sample shifts
 - Menu and staff master management
-- Autosave/recovery patterns and browser-session sandboxing
+- Autosave/recovery patterns and editable browser sandbox
 
 ## Portfolio safety
-All names and figures are fictional. This GitHub Pages build does **not** connect to the restaurant's production Google Sheet or Apps Script backend. Changes are stored only in the visitor's browser (`localStorage`) and can be reset with **Reset Demo**.
+All staff names, operational figures and sample transactions are fictional. This GitHub Pages build is completely separate from the restaurant production environment and does **not** connect to the production Google Sheet or Apps Script backend.
+
+Changes made by a visitor are stored only in that visitor's browser (`localStorage`). **Reset Demo** restores the original fictional dataset.
 
 ## Technology
-HTML5, CSS3, JavaScript, Google Charts. The production system uses Google Apps Script and Google Sheets as its application/backend layer.
+HTML5, CSS3, JavaScript and Google Charts. The production application uses Google Apps Script and Google Sheets as its application/backend layer.
+
+## Demo notes
+The portfolio build intentionally preloads a complete fictional sample date and sample week so dashboard charts, labour analytics, payroll and ROTA can be reviewed without setup. It is designed for demonstration rather than production data entry.
 
 ## Run locally
-Open `index.html` in a browser. For GitHub Pages, publish the repository root from the `main` branch.
+Open `index.html` in a browser. GitHub Pages publishes the repository root from the `main` branch.

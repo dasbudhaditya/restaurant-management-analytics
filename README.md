@@ -1,6 +1,6 @@
 # Restaurant Management & Analytics System — Portfolio Demo
 
-**Live demo:** https://dasbudhaditya.github.io/restaurant-management-analytics/
+**Live demo:** https://dasbudhaditya.github.io/restaurant-management-analytics/recruiter-demo.html
 
 A standalone, interactive demonstration of a restaurant operations and management analytics platform. The demo opens with a populated fictional trading day so reviewers can immediately explore the dashboard and then switch between daily, weekly, monthly and custom reporting views.
 

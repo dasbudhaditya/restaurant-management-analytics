@@ -1,3 +1,1695 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Restaurant Management Analytics — Portfolio Demo</title><style>body{font-family:Arial,sans-serif;margin:0;background:#f6f2ea;color:#211d19}.wrap{max-width:900px;margin:80px auto;padding:32px}.card{background:#fff;border:1px solid #dbcdb9;border-radius:16px;padding:30px;box-shadow:0 10px 30px #0001}h1{color:#7f1d27}.gold{color:#a87424}a{color:#7f1d27}</style></head><body><div class="wrap"><div class="card"><h1>Restaurant Management Analytics</h1><h2 class="gold">Portfolio Demo temporarily being restored</h2><p>The previous demo deployment was corrupted during an update. The repository is being restored to the last working application version.</p><p>This page confirms that GitHub Pages itself is working correctly.</p></div></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{
+      --bg:#f2eee7;
+      --surface:#fffdf9;
+      --surface2:#f7f1e8;
+      --ink:#171512;
+      --muted:#746b60;
+      --gold:#c29a5b;
+      --gold2:#a97a38;
+      --red:#7b1f25;
+      --red2:#5f171c;
+      --charcoal:#171717;
+      --charcoal2:#24211e;
+      --line:#ded3c4;
+      --success:#dcebdc;
+      --danger:#f2d6d6;
+      --shadow:0 8px 30px rgba(26,20,14,.08)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font:14px/1.45 Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#eee8df 0,#f7f4ef 260px,var(--bg) 100%);color:var(--ink)}
+    header{
+      min-height:68px;background:linear-gradient(90deg,#111,#201d19 60%,#151515);
+      color:#fff;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:10;border-bottom:2px solid var(--gold);
+      box-shadow:0 4px 18px rgba(0,0,0,.22)
+    }
+    header b{color:var(--gold);font-size:21px;letter-spacing:.5px;text-transform:uppercase}
+    header span{color:#d8c7ad;font-size:13px}
+    .wrap{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 68px)}
+    nav{
+      background:linear-gradient(180deg,#191817,#22201e);padding:20px 12px;
+      border-right:1px solid #332e29;
+      position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;align-self:start
+    }
+    .navbtn{
+      display:block;width:100%;border:1px solid transparent;background:transparent;color:#d8d1c7;
+      text-align:left;padding:12px 13px;border-radius:9px;margin:4px 0;cursor:pointer;font-weight:600;
+      transition:.18s ease
+    }
+    .navbtn:hover{background:#2d2823;color:#fff;border-color:#4a4036}
+    .navbtn.active{background:linear-gradient(90deg,var(--red2),var(--red));color:#fff;border-color:#9b4b50;box-shadow:inset 3px 0 0 var(--gold)}
+    .content{padding:24px;max-width:1500px;width:100%}
+    .page{display:none}.page.active{display:block}
+    .card{
+      background:rgba(255,253,249,.97);border:1px solid var(--line);border-radius:14px;
+      padding:18px;margin-bottom:16px;box-shadow:var(--shadow)
+    }
+    h1,h2,h3{margin-top:0;color:#211d18}
+    h2{font-size:22px;border-bottom:1px solid #eadfce;padding-bottom:9px}
+    h3{font-size:16px;color:var(--red2)}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:13px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    label{display:block;font-size:11px;font-weight:700;letter-spacing:.25px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+    input,select,textarea{
+      width:100%;padding:10px 11px;border:1px solid #cfc1ae;border-radius:8px;background:#fffdfb;
+      color:var(--ink);outline:none;transition:.15s ease
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(194,154,91,.17)}
+    input[readonly]{background:#f0ebe4;color:#4d453d;font-weight:700}
+    button{
+      border:0;border-radius:8px;padding:10px 15px;background:linear-gradient(180deg,var(--red),var(--red2));
+      color:#fff;cursor:pointer;font-weight:700;box-shadow:0 3px 8px rgba(80,15,20,.15);transition:.15s ease
+    }
+    button:hover{filter:brightness(1.08);transform:translateY(-1px)}
+    .secondary{background:linear-gradient(180deg,#4b4742,#34312e)}
+    .gold{background:linear-gradient(180deg,#d0aa6d,var(--gold2));color:#17130e}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+    .kpi{
+      background:linear-gradient(180deg,#fffefb,#f8f2e9);border:1px solid #e2d5c2;border-top:3px solid var(--gold);
+      padding:15px;border-radius:11px;box-shadow:0 5px 16px rgba(38,26,12,.06)
+    }
+    .kpi small{color:#7a6e60;text-transform:uppercase;font-size:10px;font-weight:700;letter-spacing:.5px}
+    .kpi strong{display:block;font-size:23px;margin-top:5px;color:#251f18}
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    th,td{border-bottom:1px solid #ece2d5;padding:9px;text-align:left}
+    th{background:#1d1b19;color:#f4e7d4;position:static;top:auto;font-size:11px;text-transform:uppercase;letter-spacing:.35px}
+    th,td{vertical-align:middle}
+    .grid>*,.grid2>*{min-width:0}
+    input,select,textarea,button{box-sizing:border-box}
+    .grid input,.grid select,.grid textarea,.grid2 input,.grid2 select,.grid2 textarea{min-width:0}
+    .table-scroll table{min-width:760px}
+    .table-scroll th{position:static!important;top:auto!important}
+    .card table input,.card table select,.card table textarea{max-width:100%;min-width:0}
+    .row-actions,.action-cell{white-space:normal}
+    .row-actions button,.action-cell button{margin:2px 3px 2px 0}
+    tbody tr:hover{background:#fbf6ef}
+    .row-actions button{padding:6px 9px}
+    .pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#eee}
+    .ok{background:var(--success);color:#28552c}.bad{background:var(--danger);color:#7b1f25}
+    .status{position:fixed;right:20px;bottom:20px;background:#181716;color:#fff;padding:11px 15px;border-radius:9px;display:none;z-index:20;border-left:4px solid var(--gold);box-shadow:var(--shadow)}
+    .bar{height:22px;background:#eee5d8;border-radius:6px;overflow:hidden}.bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold))}
+    .rangeBox{display:none;padding:12px;border:1px dashed #cbb994;border-radius:10px;background:#fbf7f0}
+    .rangeBox.active{display:grid}
+
+    .product-category-card{border-top:3px solid var(--gold);position:relative}
+    .product-category-header{display:flex;gap:12px;align-items:end;justify-content:space-between;margin-bottom:12px}
+    .product-category-title{flex:1;max-width:460px}
+    .product-items-table th{position:static!important;top:auto!important}
+    .product-add-row{display:flex;gap:10px;align-items:center;margin-top:12px}
+    .product-empty{padding:14px;border:1px dashed #ccb995;border-radius:9px;background:#fbf6ee;color:#756a5e}
+
+    button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+    .chart-card{min-height:490px}.chart-wrap{width:100%;height:420px}
+    .chart-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+    .mini-stat{background:#f8f1e7;border:1px solid #e4d5bf;border-radius:9px;padding:9px}
+    .mini-stat small{display:block;color:#786c5d;text-transform:uppercase;font-size:9px;font-weight:700}
+    .mini-stat strong{display:block;margin-top:3px;font-size:15px}
+    .staff-dashboard-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+    .staff-table-scroll{max-height:430px;overflow:auto;position:relative}
+    /* Dashboard staff table scrolls inside its own container.
+       Override the global page-level sticky header offset (top:68px),
+       otherwise rows can appear above/behind the header while scrolling. */
+    .staff-table-scroll th{position:sticky!important;top:0!important;z-index:3!important}
+    @media(max-width:1000px){.staff-dashboard-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:650px){.chart-summary,.staff-dashboard-grid{grid-template-columns:1fr}}
+
+
+
+
+    /* v5.5 Product Sales layout + subtle motion */
+    :root{--motion-fast:160ms;--motion-med:260ms;--motion-ease:cubic-bezier(.2,.8,.2,1)}
+    button,input,select,.card,.product-category-card,.recon-box,.kpi,.pill{
+      transition:transform var(--motion-fast) var(--motion-ease),box-shadow var(--motion-fast) var(--motion-ease),
+      border-color var(--motion-fast) var(--motion-ease),background-color var(--motion-fast) var(--motion-ease),
+      opacity var(--motion-fast) var(--motion-ease)
+    }
+    button:hover:not(:disabled){transform:translateY(-1px)}
+    button:active:not(:disabled){transform:translateY(0) scale(.99)}
+    .card,.product-category-card{animation:ksFadeUp var(--motion-med) var(--motion-ease) both}
+    @keyframes ksFadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    }
+    /* v5.5.5 Staff Hours layout fix: keep the header in normal table flow.
+       The global sticky TH rule can otherwise overlap the first editable row. */
+    .staff-hours-scroll{overflow-x:auto;width:100%;padding-top:2px}
+    .staff-hours-table{min-width:1120px;width:100%;table-layout:fixed}
+    .staff-hours-table th{position:static!important;top:auto!important;z-index:auto!important}
+    .staff-hours-table th,.staff-hours-table td{vertical-align:middle}
+    .staff-hours-table th:nth-child(1){width:260px}
+    .staff-hours-table th:nth-child(2),.staff-hours-table th:nth-child(3){width:155px}
+    .staff-hours-table th:nth-child(4){width:145px}
+    .staff-hours-table th:nth-child(5){width:130px}
+    .staff-hours-table th:nth-child(6){width:235px}
+    .staff-hours-table th:nth-child(7){width:58px}
+    .staff-hours-table td input,.staff-hours-table td select{min-width:0;width:100%;box-sizing:border-box}
+    .staff-hours-table .staff-hours-value{display:inline-block;min-width:70px;font-variant-numeric:tabular-nums}
+    .staff-hours-table .ot-detail-row td{background:#fbf6ef;vertical-align:bottom}
+    .staff-hours-table .ot-detail-row label{display:block;margin:0 0 5px}
+    @media(max-width:800px){.staff-hours-table{min-width:1020px}}
+
+    .product-summary-panel{border:1px solid #ddcfbb;border-radius:14px;padding:16px;margin:0 0 18px;background:#fffaf2;box-shadow:0 2px 10px rgba(57,42,24,.04)}
+    .product-summary-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}
+    .summary-grand{background:#2f251d;color:#f6e6bd;border-radius:10px;padding:9px 12px;font-weight:800;white-space:nowrap}
+    .table-scroll{overflow-x:auto;width:100%}
+    .product-summary-table{width:100%;table-layout:fixed}
+    .product-summary-table th:nth-child(2),.product-summary-table td:nth-child(2){width:150px;text-align:right}
+    .product-summary-table th:nth-child(3),.product-summary-table td:nth-child(3){width:170px;text-align:right}
+
+    /* v5.5 Product Sales overlap fix */
+    .product-category-card{position:relative}
+    .product-category-head{
+      position:relative;
+      z-index:2;
+      padding-bottom:16px;
+      margin-bottom:18px;
+      border-bottom:1px solid #eee3d3;
+      background:#fff;
+    }
+    .product-category-card .table-scroll{
+      position:relative;
+      z-index:1;
+      clear:both;
+      padding-top:2px;
+    }
+    .product-category-card thead th{
+      position:static;
+      background:#faf5ed;
+      padding-top:12px;
+      padding-bottom:12px;
+    }
+    .product-category-card tbody tr:first-child td{
+      padding-top:14px;
+    }
+    .product-category-card td,
+    .product-category-card th{
+      box-sizing:border-box;
+    }
+
+    .product-category-footer{
+      display:grid;
+      grid-template-columns:auto minmax(220px,1fr) minmax(240px,1fr);
+      align-items:center;
+      gap:12px;
+    }
+    .category-footer-stat{
+      background:#f7f1e8;
+      border:1px solid #e4d7c5;
+      border-radius:10px;
+      padding:10px 12px;
+      min-width:0;
+    }
+    .category-footer-stat small{
+      display:block;
+      color:#7a6d5d;
+      text-transform:uppercase;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.03em;
+      margin-bottom:3px;
+    }
+    .category-footer-stat strong{
+      display:block;
+      color:#3d2d1d;
+      font-size:15px;
+      overflow-wrap:anywhere;
+    }
+    @media(max-width:900px){
+      .product-category-footer{grid-template-columns:1fr 1fr}
+      .product-category-footer .secondary{grid-column:1/-1;justify-self:start}
+    }
+    @media(max-width:620px){
+      .product-category-footer{grid-template-columns:1fr}
+      .product-category-footer .secondary{grid-column:auto}
+    }
+
+    .product-category-card{border:1px solid #dfd2c0;border-radius:14px;padding:18px;margin-bottom:20px;background:#fff;box-shadow:0 3px 12px rgba(57,42,24,.045)}
+    .product-category-head{display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:16px;align-items:end;margin-bottom:14px}
+    .product-category-head>div{min-width:0}
+    .product-category-card table{width:100%;table-layout:fixed}
+    .product-category-card th,.product-category-card td{vertical-align:top}
+    .product-category-card th:nth-child(1){width:auto}
+    .product-category-card th:nth-child(2){width:130px}
+    .product-category-card th:nth-child(3){width:190px}
+    .product-category-card th:nth-child(4){width:92px}
+    .product-category-card select,.product-category-card input{width:100%;box-sizing:border-box}
+    .product-category-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #eadfce;margin-top:14px;padding-top:14px}
+    .duplicate-note{font-size:11px;color:#a02b33;margin-top:4px;font-weight:700}
+    .duplicate-row td{background:#fff5f5}
+    @media(max-width:780px){
+      .product-category-head{grid-template-columns:1fr}
+      .product-category-card{padding:13px}
+      .product-category-card table{min-width:720px}
+      .product-category-footer{align-items:flex-start;flex-direction:column}
+      .product-summary-head{flex-direction:column}
+    }
+
+    /* v5.4.3 layout/alignment */
+    .content,.card,.grid>*,.grid2>*,.kpis>*,.staff-dashboard-grid>*{min-width:0}
+    .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;align-items:end}
+    .grid2{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+    .kpis{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;align-items:stretch}
+    .kpi{height:100%;min-height:92px;display:flex;flex-direction:column;justify-content:center}
+    .card{overflow:visible}
+    .chart-card{min-height:0;padding:20px}
+    .chart-wrap{width:100%;height:440px;overflow:hidden}
+    .chart-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0 16px}
+    .mini-stat{min-width:0;overflow:hidden}
+    .mini-stat strong{overflow-wrap:anywhere}
+    .dashboard-chart-grid{margin-bottom:18px}
+    .section-help{color:var(--muted);margin:-3px 0 14px}
+    .reconciliation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .recon-box{border:1px solid #e0d3c0;border-radius:12px;padding:15px;background:#fffaf2;min-width:0}
+    .recon-box h4{margin:0 0 10px;color:#31271d;font-size:15px}
+    .recon-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:11px}
+    .recon-stat{background:#f7f1e8;border-radius:8px;padding:9px;min-width:0}
+    .recon-stat small{display:block;color:#766a5c;text-transform:uppercase;font-size:9px;font-weight:700}
+    .recon-stat strong{display:block;margin-top:3px;font-size:14px;overflow-wrap:anywhere}
+    .recon-comment{padding:10px 11px;border-radius:8px;line-height:1.45}
+    .recon-ok{background:#e5f1e4;color:#28552c;border-left:4px solid #5c985f}
+    .recon-warn{background:#fff2bd;color:#6b5311;border-left:4px solid #d4a91f}
+    .recon-bad{background:#f7dddd;color:#7b1f25;border-left:4px solid #bd4a51}
+    .product-category-card{scroll-margin-top:84px}
+    @media(max-width:1100px){
+      .grid2,.reconciliation-grid{grid-template-columns:1fr}
+      .chart-wrap{height:430px}
+    }
+    @media(max-width:700px){
+      .recon-values{grid-template-columns:1fr}
+      .chart-summary{grid-template-columns:1fr}
+    }
+
+    .gross-auto{background:#f7f1e8}
+    .gross-over{background:#fff2a8 !important;border-color:#d8b438 !important}
+    .gross-under{background:#ffd7d7 !important;border-color:#c94a4a !important}
+    .gross-manual{box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+    .price-note{font-size:10px;color:#7c7165;margin-top:3px}
+
+    .product-footer-actions{display:flex;gap:10px;flex-wrap:wrap;position:sticky;bottom:0;background:rgba(242,238,231,.94);backdrop-filter:blur(8px);padding:12px 0 4px;z-index:4}
+    .periodBadge{display:inline-block;background:#211f1c;color:#e7c896;border-radius:20px;padding:5px 9px;font-size:12px;font-weight:700}
+    @media(max-width:1000px){.wrap{grid-template-columns:1fr}nav{display:flex;overflow-x:auto;overflow-y:hidden;position:sticky;top:68px;z-index:9;height:auto;padding:8px;min-height:auto}.navbtn{min-width:145px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}}
+    @media(max-width:650px){header{padding:10px 13px}.content{padding:10px}.grid,.kpis,.grid2{grid-template-columns:1fr}.card{padding:13px}.wrap{display:block}th{top:64px}}
+  
+    /* v5.5.10 Product Sales search + monthly payroll */
+    .product-search-card{position:relative;z-index:6}
+    .product-search-grid{display:grid;grid-template-columns:minmax(240px,2fr) minmax(180px,1fr) auto;gap:12px;align-items:end}
+    .product-search-results{margin-top:10px;border:1px solid #ded2c1;border-radius:10px;background:#fff;max-height:300px;overflow:auto;display:none}
+    .product-search-result{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 12px;border-bottom:1px solid #eee5d9}
+    .product-search-result:last-child{border-bottom:0}
+    .product-search-result strong,.product-search-result small{display:block;overflow-wrap:anywhere}
+    .product-search-result small{color:#75695c;margin-top:2px}
+    .monthly-payroll-table{min-width:700px}
+    .monthly-payroll-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 14px}
+    @media(max-width:760px){.product-search-grid{grid-template-columns:1fr}.monthly-payroll-summary{grid-template-columns:1fr}}
+
+    /* v5.5 Product Sales visual cleanup based on deployed UI review */
+    .product-category-card .table-scroll{
+      padding-top:0;
+      margin-top:0;
+      border-top:0;
+    }
+
+    .product-category-card table{
+      border-collapse:separate;
+      border-spacing:0;
+      margin-top:0;
+    }
+
+    .product-category-card thead{
+      position:static!important;
+    }
+
+    .product-category-card thead tr{
+      background:#eee3d2!important;
+    }
+
+    .product-category-card thead th{
+      position:static!important;
+      top:auto!important;
+      z-index:auto!important;
+      background:#eee3d2!important;
+      color:#57452f!important;
+      opacity:1!important;
+      font-size:11px!important;
+      font-weight:800!important;
+      letter-spacing:.045em;
+      text-transform:uppercase;
+      line-height:1.2;
+      padding:11px 8px!important;
+      border-top:1px solid #ded0ba;
+      border-bottom:1px solid #d8c8ae;
+    }
+
+    .product-category-card thead th:first-child{
+      padding-left:8px!important;
+    }
+
+    .product-category-card tbody tr:first-child td{
+      padding-top:15px!important;
+    }
+
+    .product-category-card tbody td{
+      background:#fff!important;
+    }
+
+    .product-category-head{
+      margin-bottom:14px!important;
+      padding-bottom:13px!important;
+    }
+
+    /* Keep footer controls visually grouped rather than spread across the card */
+    .product-category-footer{
+      display:flex!important;
+      align-items:center!important;
+      justify-content:space-between!important;
+      gap:16px!important;
+      flex-wrap:wrap;
+    }
+
+    .product-category-footer .secondary{
+      flex:0 0 auto;
+    }
+
+    .category-summary-pair{
+      display:flex;
+      align-items:stretch;
+      justify-content:flex-end;
+      gap:10px;
+      margin-left:auto;
+      flex-wrap:wrap;
+    }
+
+    .category-footer-stat{
+      min-width:155px!important;
+      max-width:210px;
+      padding:9px 12px!important;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .category-footer-stat.category-gross{
+      min-width:205px!important;
+    }
+
+    .category-footer-stat small{
+      margin-bottom:4px!important;
+      line-height:1.25;
+    }
+
+    .category-footer-stat strong{
+      font-size:16px!important;
+      line-height:1.2;
+    }
+
+    @media(max-width:760px){
+      .product-category-footer{
+        align-items:flex-start!important;
+      }
+      .category-summary-pair{
+        width:100%;
+        margin-left:0;
+        justify-content:flex-start;
+      }
+      .category-footer-stat,
+      .category-footer-stat.category-gross{
+        min-width:0!important;
+        max-width:none;
+        flex:1 1 180px;
+      }
+    }
+
+
+    /* v5.5.2 Category Sales Summary overlap fix */
+    .product-summary-panel .table-scroll{
+      overflow-x:auto;
+      overflow-y:visible;
+      position:relative;
+    }
+
+    .product-summary-table{
+      border-collapse:separate!important;
+      border-spacing:0!important;
+      position:relative;
+    }
+
+    .product-summary-table thead,
+    .product-summary-table thead tr,
+    .product-summary-table thead th{
+      position:static!important;
+      top:auto!important;
+      z-index:auto!important;
+    }
+
+    .product-summary-table thead tr{
+      background:#1e1b17!important;
+    }
+
+    .product-summary-table thead th{
+      background:#1e1b17!important;
+      color:#f5ead4!important;
+      opacity:1!important;
+      padding:10px 9px!important;
+      line-height:1.2!important;
+      border:0!important;
+    }
+
+    .product-summary-table tbody{
+      position:static!important;
+    }
+
+    .product-summary-table tbody tr{
+      position:static!important;
+      background:#fffaf2;
+    }
+
+    .product-summary-table tbody td{
+      position:static!important;
+      background:#fffaf2!important;
+      padding:11px 9px!important;
+      border-bottom:1px solid #eadfce;
+      line-height:1.3;
+    }
+
+    .product-summary-table tbody tr:first-child td{
+      padding-top:13px!important;
+    }
+
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(20,16,12,.5);z-index:1000;align-items:center;justify-content:center;padding:20px}
+    .modal-card{width:min(760px,96vw);max-height:90vh;overflow:auto;background:#fffaf4;border-radius:18px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.28);border:1px solid #e5d7c4}
+
+    /* v5.5.10 alignment hardening: no page-level sticky table headers.
+       Sticky behavior is opt-in only for dedicated scroll containers. */
+    .content table{border-collapse:separate;border-spacing:0}
+    .content thead th{position:static;top:auto}
+    .staff-table-scroll thead th{position:sticky!important;top:0!important}
+    .management-table{min-width:820px}
+    .dashboard-staff-table{min-width:760px}
+    .overtime-table{min-width:560px}
+    .overtime-panel{margin-top:18px;padding-top:16px;border-top:1px solid #eadfce}
+    .overtime-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(360px,.75fr);gap:18px;align-items:start}
+    .overtime-chart{width:100%;height:380px}
+    @media(max-width:1050px){.overtime-grid{grid-template-columns:1fr}.overtime-chart{height:360px}}
+    @media(max-width:760px){
+      .grid,.grid2{grid-template-columns:1fr}
+      .content{padding:14px}
+      .card{padding:14px}
+      .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    .rota-scroll{overflow:auto;max-width:100%}.rota-table{min-width:1450px}.rota-table th{position:static!important}.rota-table td{vertical-align:top;min-width:155px}.rota-table td:first-child{min-width:170px;position:sticky;left:0;background:#fffaf4;z-index:2}.rota-table th:first-child{position:sticky!important;left:0;z-index:3}.rota-shift{min-width:140px;font-size:13px}.rota-note{min-width:170px}
+
+    /* v6 update centre */
+    .update-modal{position:fixed;inset:0;background:rgba(15,12,10,.62);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px}
+    .update-modal.show{display:flex}
+    .update-card{width:min(620px,96vw);background:#fffaf4;border:1px solid #dfcfb8;border-radius:18px;padding:24px;box-shadow:0 28px 80px rgba(0,0,0,.35)}
+    .update-card h2{margin-bottom:6px}.update-version{display:inline-block;background:#211f1c;color:#e7c896;border-radius:18px;padding:5px 10px;font-weight:800}
+    .update-notes{margin:16px 0;padding-left:20px;color:#4d453d}.update-notes li{margin:7px 0}
+    .update-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:18px}
+    .update-critical{background:#f7dddd;border-left:4px solid #bd4a51;padding:10px 12px;border-radius:8px;color:#7b1f25;font-weight:700;margin-top:12px}
+
+
+    .portfolio-banner{background:#7b1f25;color:#fff;padding:10px 18px;text-align:center;font-weight:700;border-bottom:1px solid #a97a38}
+    .portfolio-banner span{color:#f2d6a7;font-weight:600}
+    .demo-reset{background:#a97a38;color:#17130e;margin-left:10px;padding:6px 10px}
+</style>
+</head>
+<body>
+<div class="portfolio-banner">PORTFOLIO DEMO <span>• Fictional sample data • Changes stay only in this browser</span><button class="demo-reset" onclick="DemoAPI.reset()">Reset Demo</button></div>
+<header><b>Restaurant Management Analytics — Portfolio Demo</b><div style="display:flex;align-items:center;gap:10px"><span id="appVersion">v6.0</span><span id="updateState" class="pill" style="background:#2d2823;color:#d8c7ad;padding:5px 9px">Checking…</span><button class="gold" style="padding:7px 11px" onclick="checkForUpdates(true)">Check Updates</button><span id="headerDate"></span></div></header>
+<div style="max-width:1500px;margin:10px auto 0;padding:0 18px"><div id="demoBanner" style="background:#fff3cd;border:1px solid #e3c36a;padding:10px 16px;border-radius:10px;font-weight:700;color:#5b4610">PORTFOLIO DEMO — Staff names and operational figures are fictional sample data. This deployment is completely separate from the live restaurant system.</div></div>
+<div class="wrap">
+<nav>
+  <button class="navbtn active" onclick="showPage('dashboard',this)">Dashboard</button>
+  <button class="navbtn" onclick="showPage('daily',this)">Daily Z-Report</button>
+  <button class="navbtn" onclick="showPage('products',this)">Product Sales</button>
+  <button class="navbtn" onclick="showPage('staffhours',this)">Staff Hours</button>
+  <button class="navbtn" onclick="showPage('staffmanage',this)">Staff Management</button>
+  <button class="navbtn" onclick="showPage('rota',this);initRotaPage()">ROTA</button>
+  <button class="navbtn" onclick="showPage('menu',this)">Menu</button>
+  <button class="navbtn" onclick="showPage('history',this)">History</button>
+</nav>
+<main class="content">
+  <section id="dashboard" class="page active">
+    <div class="card"><div class="grid">
+      <div><label>Report Type</label><select id="dashType" onchange="toggleCustomRange();if(this.value==='Custom Date Range'||dashDate.value)loadDashboard()"><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Custom Date Range</option></select></div>
+      <div id="singleDateBox"><label>Selected Date</label><input type="date" id="dashDate" onchange="syncBusinessDate(this.value,'dashDate');loadDashboard()"></div>
+      <div><label>Period</label><div id="dashPeriodBadge" class="periodBadge">Daily view</div></div>
+      <div style="align-self:end"><button onclick="loadDashboard()">Refresh Dashboard</button></div>
+    </div>
+      <div id="customRangeBox" class="grid rangeBox" style="margin-top:13px">
+        <div><label>Start Date</label><input type="date" id="dashStartDate"></div>
+        <div><label>End Date</label><input type="date" id="dashEndDate"></div>
+      </div>
+    </div>
+    <div id="kpis" class="kpis"></div>
+    <div class="card reconciliation-card">
+      <h3>Food & Beverage Sales Reconciliation</h3>
+      <p class="section-help">Compares the Daily Z-Report totals with Product Sales and with the expected Menu Price × Quantity calculation.</p>
+      <div id="salesReconciliation" class="reconciliation-grid"></div>
+    </div>
+    <div class="grid2 dashboard-chart-grid">
+      <div class="card chart-card"><h3>Food Revenue by Menu Category</h3><div id="foodChartSummary" class="chart-summary"></div><div id="topFoodChart" class="chart-wrap"></div><div id="topFoodFallback"></div></div>
+      <div class="card chart-card"><h3>Beverage Revenue by Menu Category</h3><div id="beverageChartSummary" class="chart-summary"></div><div id="topBeverageChart" class="chart-wrap"></div><div id="topBeverageFallback"></div></div>
+    </div>
+    <div class="card"><h3>Staff Performance & Labour</h3><div id="staffKpis" class="staff-dashboard-grid"></div>
+      <div class="grid2"><div><div id="staffHoursChart" class="chart-wrap"></div></div><div class="staff-table-scroll"><table class="dashboard-staff-table"><thead><tr><th>Staff</th><th>Role</th><th>Regular Hours</th><th>Regular Labour Cost</th></tr></thead><tbody id="staffDashboardBody"></tbody></table></div></div>
+      <div class="overtime-panel"><h3>Overtime Analysis</h3><p class="section-help">Overtime is reported separately from regular/scheduled hours. Spend includes each employee's hourly wage × overtime hours × overtime multiplier.</p><div class="overtime-grid"><div id="overtimeChart" class="overtime-chart"></div><div class="table-scroll"><table class="overtime-table"><thead><tr><th>Staff</th><th>OT Hours</th><th>OT Spend</th></tr></thead><tbody id="overtimeDashboardBody"></tbody></table></div></div></div>
+    </div>
+    <div class="card"><h3>Current Month Payroll</h3><p id="monthlyPayrollPeriod" class="section-help">Salary accrued from recorded Staff Hours for the month up to the selected Dashboard date.</p><div id="monthlyPayrollSummary" class="monthly-payroll-summary"></div><div class="table-scroll"><table class="monthly-payroll-table"><thead><tr><th>Staff</th><th>Role</th><th>Regular Hours</th><th>Regular Pay</th><th>OT Hours</th><th>OT Pay</th><th>Salary to Date</th></tr></thead><tbody id="monthlyPayrollBody"></tbody></table></div></div>
+    <div class="card"><h3>Selected Period Details</h3><div id="periodInfo"></div></div>
+  </section>
+
+  <section id="daily" class="page">
+    <div class="card"><h2>Daily Z-Report Entry</h2><div class="grid">
+      <div><label>Business Date</label><input type="date" id="dailyDate" onchange="syncBusinessDate(this.value,'dailyDate');loadDaily()"></div>
+      <div style="align-self:end"><button class="secondary" onclick="loadDaily()">Load Existing</button></div>
+      <div style="align-self:end"><button class="gold" onclick="refreshDailyFromProducts(true)">Refresh from Product Sales</button></div>
+    </div><div id="dailyProductInfo" style="margin-top:12px;color:#6f6559"></div></div>
+    <div class="card"><div id="dailyDraftStatus" class="pill" style="margin-bottom:12px">Draft not saved yet</div><div id="dailyForm" class="grid"></div><br><button onclick="saveDaily()">Save Day</button></div>
+    <div class="card"><h3>Automatic Checks</h3><div id="dailyChecks">Save or load a date to see checks.</div></div>
+  </section>
+
+  <section id="products" class="page">
+    <div class="card">
+      <h2>Product Sales Entry</h2>
+      <p style="color:#6f6559;margin-top:-4px">Enter the Z-report in sections. Your unfinished entry is saved automatically as a draft.</p>
+<div id="productDraftStatus" class="pill" style="margin-bottom:12px">Draft not saved yet</div>
+<div class="product-summary-panel">
+  <div class="product-summary-head">
+    <div><h3 style="margin:0">Category Sales Summary</h3><div class="section-help" style="margin:4px 0 0">Live totals from the Product Sales entry below.</div></div>
+    <div id="productSummaryGrand" class="summary-grand">0 items • £0.00</div>
+  </div>
+  <div class="table-scroll">
+    <table class="product-summary-table">
+      <thead><tr><th>Category</th><th>Items Sold</th><th>Gross Sales</th></tr></thead>
+      <tbody id="productCategorySummary"><tr><td colspan="3">No Product Sales entered yet.</td></tr></tbody>
+    </table>
+  </div>
+</div>
+      <div class="grid">
+        <div><label>Business Date</label><input type="date" id="prodDate" onchange="syncBusinessDate(this.value,'prodDate');loadProducts()"></div>
+        <div style="align-self:end"><button class="secondary" onclick="loadProducts()">Load Existing Day</button></div>
+      </div>
+    </div>
+    <div class="card product-search-card">
+      <h3 style="margin-top:0">Find & Add Product</h3>
+      <p class="section-help">Search the Menu Master and add a missed item directly into its correct Product Sales category.</p>
+      <div class="product-search-grid">
+        <div><label>Search product</label><input id="productSalesSearch" placeholder="Item name, till name, category or ID" oninput="searchProductSalesMenu(this.value)" onkeydown="if(event.key==='Escape')clearProductSalesSearch()"></div>
+        <div><label>Filter category</label><select id="productSalesSearchCategory" onchange="searchProductSalesMenu(productSalesSearch.value)"><option value="">All categories</option></select></div>
+        <div><button class="secondary" onclick="clearProductSalesSearch()">Clear</button></div>
+      </div>
+      <div id="productSalesSearchResults" class="product-search-results"></div>
+    </div>
+    <div id="productGroups"></div>
+    <div class="product-footer-actions">
+      <button class="gold" onclick="addProductCategory()">+ Add Another Category</button>
+      <button class="danger" onclick="clearProductWorkingDay()">Clear Working Day</button>
+      <button id="saveProductsBtn" onclick="saveProducts()">Save Complete Product Sales</button>
+    </div>
+  </section>
+
+  <section id="staffhours" class="page">
+    <div class="card"><h2>Staff Hours & Daily Labour Control</h2>
+      <div class="grid">
+        <div><label>Business Date</label><input type="date" id="staffDate" onchange="syncBusinessDate(this.value,'staffDate');loadStaffHours(true)"></div>
+        <div><label>Daily Staff Budget (£)</label><input type="number" step="0.01" id="dailyStaffBudget" oninput="updateLabourControlPreview();scheduleStaffDraftSave()"></div>
+        <div><label>Actual Staff Expense (£)</label><input type="text" id="actualStaffExpense" readonly></div>
+        <div><label>Variance (£)</label><input type="text" id="staffBudgetVariance" readonly></div>
+      </div>
+      <br>
+      <button class="secondary" onclick="loadStaffHours(false)">Load Existing</button>
+      <button class="gold" onclick="saveLabourBudgetOnly()">Save Budget</button>
+    </div>
+    <div class="card"><div id="staffDraftStatus" class="pill" style="margin-bottom:12px">Draft not saved yet</div><div class="staff-hours-scroll"><table class="staff-hours-table"><thead><tr><th>Staff</th><th>Clock In</th><th>Clock Out</th><th>Regular Hours</th><th>Overtime?</th><th>Notes</th><th></th></tr></thead><tbody id="staffBody"></tbody></table></div><div class="section-help" style="margin-top:10px">Clock times accept either 24-hour <b>1630</b> or <b>16:30</b>. Overnight shifts are calculated automatically.</div></div>
+    <button class="gold" onclick="addStaffRow()">+ Add Staff</button>
+    <button onclick="saveStaffHours()">Save Staff Hours</button>
+  </section>
+
+
+  <section id="staffmanage" class="page">
+    <div class="card">
+      <h2>Staff Management</h2>
+      <p style="color:#666">Add staff, change role or hourly wage, set weekly target hours, and deactivate leavers without deleting their historical records.</p>
+      <button class="gold" onclick="editStaffMember()">+ Add Staff Member</button>
+      <label style="display:inline-block;margin-left:14px"><input id="showInactiveStaff" type="checkbox" onchange="renderStaffManagement()" style="width:auto"> Show inactive staff</label>
+    </div>
+    <div class="card"><div class="table-scroll">
+      <table class="management-table">
+        <thead><tr><th>Name</th><th>Role</th><th>Hourly Wage</th><th>Weekly Target</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="staffManageBody"></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="menu" class="page">
+    <div class="card"><h2>Menu Management</h2><p style="color:#666">Add/edit items and categories. Deactivate discontinued items to preserve history. Permanent delete is available only for items that have never appeared in Product Sales.</p><div class="grid" style="align-items:end"><div><label>Search Menu</label><input id="menuSearch" placeholder="Item, till name, category, type or ID" onkeydown="if(event.key==='Enter')renderMenu()"></div><div><button onclick="renderMenu()">Search</button> <button class="secondary" onclick="menuSearch.value='';renderMenu()">Clear</button></div><div><button class="gold" onclick="editMenuItem()">+ New Item</button></div><div><label style="display:inline-block"><input id="showInactive" type="checkbox" onchange="renderMenu()" style="width:auto"> Show inactive</label></div></div></div>
+<div class="card"><div class="table-scroll"><table class="management-table"><thead><tr><th>Item</th><th>Till Name</th><th>Category</th><th>Type</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody id="menuBody"></tbody></table></div></div>
+  </section>
+
+  <div id="menuEditorModal" class="modal-backdrop" style="display:none" onclick="if(event.target===this)closeMenuEditor()">
+    <div class="modal-card">
+      <h3 id="menuEditorTitle">Add Menu Item</h3>
+      <input type="hidden" id="menuEditId">
+      <div class="grid2">
+        <div><label>Menu item name</label><input id="menuEditName"></div>
+        <div><label>Till name</label><input id="menuEditTill"></div>
+        <div><label>Category</label><select id="menuEditCategory" onchange="toggleNewMenuCategory()"></select></div>
+        <div id="menuNewCategoryBox" style="display:none"><label>New category name</label><input id="menuNewCategory" placeholder="e.g. Seasonal Specials"></div>
+        <div><label>Product type</label><select id="menuEditType"><option>Food</option><option>Beverage</option></select></div>
+        <div><label>Variant / size / notes</label><input id="menuEditVariant"></div>
+        <div><label>Price (£)</label><input id="menuEditPrice" type="number" min="0" step="0.01"></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px"><button class="secondary" onclick="closeMenuEditor()">Cancel</button><button class="gold" onclick="saveMenuEditor()">Save Item</button></div>
+    </div>
+  </div>
+
+  <section id="rota" class="page">
+    <div class="card"><h2>ROTA Management</h2><p class="section-help">Plan a full Monday–Sunday week. Enter shifts as <b>1630-2300</b> or <b>16:30-23:00</b>. Overnight shifts are supported.</p>
+      <div class="grid" style="align-items:end"><div><label>Week containing</label><input type="date" id="rotaWeekDate"></div><div><button class="secondary" onclick="loadRota()">Load Week</button></div><div><button class="gold" onclick="saveRotaPage()">Save ROTA</button></div></div>
+      <div id="rotaWeekLabel" class="periodBadge" style="margin-top:12px">Choose a week</div>
+    </div>
+    <div class="card"><div class="rota-scroll"><table class="rota-table"><thead id="rotaHead"></thead><tbody id="rotaBody"></tbody></table></div><div class="section-help" style="margin-top:10px">Leave a day blank for no shift. Use the Notes column for leave, training or shift comments.</div></div>
+  </section>
+
+  <section id="history" class="page">
+    <div class="card"><h2>Historical Day Lookup</h2><div class="grid">
+      <div><label>Date</label><select id="historyDate"></select></div>
+      <div style="align-self:end"><button onclick="loadHistory()">View Day</button></div>
+    </div></div>
+    <div id="historyOut"></div>
+  </section>
+</main>
+</div>
+<div id="status" class="status"></div>
+
+
+<div id="updateModal" class="update-modal" role="dialog" aria-modal="true" aria-labelledby="updateTitle">
+  <div class="update-card">
+    <span id="updateVersionBadge" class="update-version">New version</span>
+    <h2 id="updateTitle" style="margin-top:12px">Update available</h2>
+    <div id="updatePublished" class="section-help"></div>
+    <ul id="updateNotes" class="update-notes"></ul>
+    <div id="updateCriticalMsg" class="update-critical" style="display:none">This is a required update. Your current work will be protected before the app reloads.</div>
+    <div id="updateSaveStatus" class="section-help" style="margin-top:12px"></div>
+    <div class="update-actions"><button id="updateLaterBtn" class="secondary" onclick="dismissUpdate()">Later</button><button id="updateNowBtn" class="gold" onclick="applyAvailableUpdate()">Update Now</button></div>
+  </div>
+</div>
+
+<script>
+/* Standalone portfolio backend. No Google account or restaurant database is used. */
+const DemoAPI=(()=>{
+ const KEY='restaurant_portfolio_demo_v6_state';
+ const seed=()=>({
+  menu:[
+   {id:'M001',item:'Sirloin Steak',till:'SIRLOIN',type:'Food',category:'Steaks',variant:'8oz',price:24.95,active:true},
+   {id:'M002',item:'Ribeye Steak',till:'RIBEYE',type:'Food',category:'Steaks',variant:'10oz',price:29.95,active:true},
+   {id:'M003',item:'Chicken Sizzler',till:'CHICK SIZZ',type:'Food',category:'Sizzlers',variant:'',price:19.95,active:true},
+   {id:'M004',item:'Lamb Chops',till:'LAMB CHOPS',type:'Food',category:'Sizzlers',variant:'',price:23.50,active:true},
+   {id:'M005',item:'Rice',till:'RICE',type:'Food',category:'Sides',variant:'',price:3.95,active:true},
+   {id:'M006',item:'Noodles',till:'NOODLES',type:'Food',category:'Sides',variant:'',price:4.25,active:true},
+   {id:'M007',item:'Fries',till:'FRIES',type:'Food',category:'Sides',variant:'',price:4.50,active:true},
+   {id:'M008',item:'Cheesecake',till:'CHEESECAKE',type:'Food',category:'Desserts',variant:'',price:7.95,active:true},
+   {id:'M009',item:'Coke',till:'COKE',type:'Beverage',category:'Soft Drinks',variant:'330ml',price:3.75,active:true},
+   {id:'M010',item:'Fresh Lime Soda',till:'LIME SODA',type:'Beverage',category:'Soft Drinks',variant:'',price:4.95,active:true},
+   {id:'M011',item:'Mojito',till:'MOJITO',type:'Beverage',category:'Cocktails',variant:'',price:10.95,active:true},
+   {id:'M012',item:'Strawberry / Raspberry Daiquiri',till:'DAIQUIRI',type:'Beverage',category:'Cocktails',variant:'',price:11.50,active:true},
+   {id:'M013',item:'House Red',till:'HOUSE RED',type:'Beverage',category:'Wine',variant:'175ml',price:8.50,active:true},
+   {id:'M014',item:'Sparkling Water',till:'SPARK WATER',type:'Beverage',category:'Water',variant:'750ml',price:5.25,active:true}
+  ],
+  staff:[
+   {id:'S001',name:'Alex Morgan',role:'Manager',wage:15.5,active:true,weeklyTarget:40,notes:''},
+   {id:'S002',name:'Jamie Patel',role:'Server',wage:12.5,active:true,weeklyTarget:32,notes:''},
+   {id:'S003',name:'Taylor Green',role:'Chef',wage:14.75,active:true,weeklyTarget:40,notes:''},
+   {id:'S004',name:'Morgan Lee',role:'Bartender',wage:13.25,active:true,weeklyTarget:32,notes:''},
+   {id:'S005',name:'Casey Brown',role:'Kitchen Assistant',wage:11.75,active:true,weeklyTarget:28,notes:''}
+  ],
+  daily:{},products:{},hours:{},budgets:{},rota:{},drafts:{}
+ });
+ function iso(d){return typeof d==='string'?d.slice(0,10):new Date(d).toISOString().slice(0,10)}
+ function money(n){return Math.round(Number(n||0)*100)/100}
+ function dur(a,b){if(!a||!b)return 0;const cv=x=>{x=String(x).replace(':','');return +x.slice(0,2)*60 + +x.slice(2,4)};let x=cv(a),y=cv(b);if(y<x)y+=1440;return (y-x)/60}
+ function norm(x){x=String(x||'').replace(/\D/g,'');if(x.length===3)x='0'+x;if(x.length!==4)return '';return x.slice(0,2)+':'+x.slice(2)}
+ let st; try{st=JSON.parse(localStorage.getItem(KEY))}catch(e){} if(!st)st=seed();
+ function save(){localStorage.setItem(KEY,JSON.stringify(st))}
+ function makeSample(){
+  const dates=['2026-08-01','2026-08-02','2026-08-03','2026-08-04','2026-08-05','2026-08-06','2026-08-07'];
+  dates.forEach((d,di)=>{
+   const lines=st.menu.map((m,i)=>{let qty=((i*3+di*2)%7); if(i<4)qty+=3; if((m.item==='Rice'||m.item==='Noodles')&&di===1)qty=16; const sales=(m.item==='Rice'&&di===1)?0:money(qty*m.price*(i===2&&di===3?.9:1));return qty?{date:d,category:m.category,item:m.item,till:m.till,type:m.type,id:m.id,qty,sales,implied:money(qty*m.price),variance:money(sales-qty*m.price)}:null}).filter(Boolean);
+   st.products[d]=lines;
+   const food=lines.filter(x=>x.type==='Food').reduce((a,x)=>a+x.sales,0), bev=lines.filter(x=>x.type==='Beverage').reduce((a,x)=>a+x.sales,0), total=money(food+bev);
+   st.daily[d]={date:d,totalSales:total,covers:48+di*5,transactions:34+di*4,serviceCharge:money(total*.1),gratuity:0,beverageGross:money(bev),foodGross:money(food),discounts:di===3?18.5:0,comps:di===1?15.8:0,wastage:di===4?12:0,voidValue:0,cash:money(total*.22),card:money(total*.78),otherTender:0,cashTenderCount:8+di,cardTenderCount:26+di*3};
+   const shifts=[['S001','12:00','21:00'],['S002','16:00','23:30'],['S003','13:00','22:30'],['S004','17:00','00:30'],['S005','15:00','22:00']];
+   st.hours[d]=shifts.map((q,i)=>{const emp=st.staff.find(x=>x.id===q[0]),reg=dur(q[1],q[2]),ot=i===2&&di%3===0?1.5:0,mult=ot?1.5:1;return {date:d,staffId:emp.id,name:emp.name,role:emp.role,regular:reg,overtime:ot,wage:emp.wage,overtimeMultiplier:mult,labourCost:money(reg*emp.wage+ot*emp.wage*mult),notes:'',clockIn:q[1],clockOut:q[2],overtimeEnabled:!!ot,overtimeClockIn:ot?'22:30':'',overtimeClockOut:ot?'00:00':''}});
+   st.budgets[d]=650;
+  }); save();
+ }
+ if(!Object.keys(st.daily||{}).length)makeSample();
+ const bootstrap=()=>{const allMenu=st.menu||[],allStaff=st.staff||[];return {menu:allMenu.filter(x=>x.active),allMenu,staff:allStaff.filter(x=>x.active),allStaff,settings:{'Daily Labour Budget (£)':650,'Weekly Labour Budget (£)':4550,'Monthly Labour Budget (£)':19500},dates:Object.keys(st.daily).sort().reverse(),categories:[...new Set(allMenu.map(x=>x.category))].sort()}}
+ function dailyCalc(x){if(!x)return null;const gross=Number(x.totalSales||0),net=money(gross/1.2),tax=money(gross-net),food=Number(x.foodGross||0),bev=Number(x.beverageGross||0);return {...x,netSales:net,tax,foodNet:money(food/1.2),foodTax:money(food-food/1.2),beverageNet:money(bev/1.2),beverageTax:money(bev-bev/1.2),averageSpend:x.covers?money(gross/x.covers):0,paymentTotal:money(Number(x.cash||0)+Number(x.card||0)+Number(x.otherTender||0)),salesCheck:true,tenderCheck:Math.abs(gross-(Number(x.cash||0)+Number(x.card||0)+Number(x.otherTender||0)))<1}}
+ function range(type,date,a,b){let d=new Date((date||'2026-08-07')+'T12:00:00'),s=new Date(d),e=new Date(d);if(type==='Weekly'){let day=(d.getDay()+6)%7;s.setDate(d.getDate()-day);e=new Date(s);e.setDate(s.getDate()+6)}else if(type==='Monthly'){s=new Date(d.getFullYear(),d.getMonth(),1);e=new Date(d.getFullYear(),d.getMonth()+1,0)}else if(type==='Custom Date Range'){s=new Date(a+'T12:00:00');e=new Date(b+'T12:00:00')}return [iso(s),iso(e)]}
+ function dashboard(type,date,a,b){const [start,end]=range(type,date,a,b),ds=Object.values(st.daily).filter(x=>x.date>=start&&x.date<=end).map(dailyCalc),pr=Object.values(st.products).flat().filter(x=>x.date>=start&&x.date<=end),hr=Object.values(st.hours).flat().filter(x=>x.date>=start&&x.date<=end);const sum=k=>ds.reduce((z,x)=>z+Number(x[k]||0),0);const labour=hr.reduce((z,x)=>z+Number(x.labourCost||0),0),reg=hr.reduce((z,x)=>z+Number(x.regular||0),0),ot=hr.reduce((z,x)=>z+Number(x.overtime||0),0),regCost=hr.reduce((z,x)=>z+x.regular*x.wage,0),otCost=hr.reduce((z,x)=>z+x.overtime*x.wage*x.overtimeMultiplier,0);const sm={};hr.forEach(x=>{let q=sm[x.staffId]||(sm[x.staffId]={id:x.staffId,name:x.name,role:x.role,regularHours:0,overtimeHours:0,totalHours:0,regularCost:0,overtimeCost:0,labourCost:0});q.regularHours+=x.regular;q.overtimeHours+=x.overtime;q.totalHours+=x.regular;q.regularCost+=x.regular*x.wage;q.overtimeCost+=x.overtime*x.wage*x.overtimeMultiplier;q.labourCost+=x.labourCost});
+  const cats=t=>{const cm={};pr.filter(x=>x.type===t).forEach(x=>{const m=st.menu.find(q=>q.id===String(x.id).split('::')[0]),rev=x.category==='Open Food'?x.sales:x.qty*Number(m?.price||0);if(rev<=0)return;let c=cm[x.category]||(cm[x.category]={category:x.category,totalRevenue:0,items:{}}),k=x.id||x.item,it=c.items[k]||(c.items[k]={id:x.id,item:x.item,category:x.category,type:t,qty:0,grossRevenue:0,unitPrice:Number(m?.price||0)});it.qty+=x.qty;it.grossRevenue+=rev;c.totalRevenue+=rev});return Object.values(cm).map(c=>({...c,items:Object.values(c.items).sort((a,b)=>b.grossRevenue-a.grossRevenue)})).sort((a,b)=>b.totalRevenue-a.totalRevenue)};
+  const fCats=cats('Food'),bCats=cats('Beverage'),flat=c=>c.flatMap(x=>x.items).sort((a,b)=>b.grossRevenue-a.grossRevenue).slice(0,10).map(x=>({...x,revenue:x.grossRevenue}));
+  const pe=new Date((date||end)+'T12:00:00'),ps=iso(new Date(pe.getFullYear(),pe.getMonth(),1)),phr=Object.values(st.hours).flat().filter(x=>x.date>=ps&&x.date<=iso(pe)),pm={};phr.forEach(x=>{let q=pm[x.staffId]||(pm[x.staffId]={id:x.staffId,name:x.name,role:x.role,regularHours:0,overtimeHours:0,regularPay:0,overtimePay:0,totalPay:0});q.regularHours+=x.regular;q.overtimeHours+=x.overtime;q.regularPay+=x.regular*x.wage;q.overtimePay+=x.overtime*x.wage*x.overtimeMultiplier;q.totalPay+=x.labourCost});const payroll=Object.values(pm).sort((a,b)=>a.name.localeCompare(b.name));
+  const foodActual=pr.filter(x=>x.type==='Food').reduce((z,x)=>z+x.sales,0),bevActual=pr.filter(x=>x.type==='Beverage').reduce((z,x)=>z+x.sales,0),expected=t=>pr.filter(x=>x.type===t).reduce((z,x)=>{const m=st.menu.find(q=>q.id===String(x.id).split('::')[0]);return z+(x.category==='Open Food'?x.sales:x.qty*Number(m?.price||0))},0);
+  return {reportType:type||'Daily',start,end,grossSales:sum('totalSales'),netSales:sum('netSales'),covers:sum('covers'),averageSpend:sum('covers')?sum('totalSales')/sum('covers'):0,foodSales:sum('foodGross'),beverageSales:sum('beverageGross'),tax:sum('tax'),serviceCharge:sum('serviceCharge'),discounts:sum('discounts'),comps:sum('comps'),wastage:sum('wastage'),voidValue:sum('voidValue'),cash:sum('cash'),card:sum('card'),otherTender:sum('otherTender'),labourCost:labour,regularLabourCost:regCost,overtimeCost:otCost,labourPct:sum('netSales')?labour/sum('netSales'):0,regularHours:reg,overtimeHours:ot,totalStaffHours:reg,labourBudget:Object.keys(st.budgets).filter(d=>d>=start&&d<=end).reduce((z,d)=>z+Number(st.budgets[d]||0),0),budgetVariance:0,itemsSold:pr.reduce((z,x)=>z+x.qty,0),topFoodCategories:fCats,topBeverageCategories:bCats,topFood:flat(fCats),topBeverage:flat(bCats),topItems:[...flat(fCats),...flat(bCats)].sort((a,b)=>b.revenue-a.revenue).slice(0,10),staffBreakdown:Object.values(sm).sort((a,b)=>a.name.localeCompare(b.name)),monthlyPayroll:{start:ps,end:iso(pe),rows:payroll,regularPay:payroll.reduce((z,x)=>z+x.regularPay,0),overtimePay:payroll.reduce((z,x)=>z+x.overtimePay,0),totalPay:payroll.reduce((z,x)=>z+x.totalPay,0)},salesReconciliation:{food:{zReport:sum('foodGross'),productActual:foodActual,expected:expected('Food'),actualVsExpected:foodActual-expected('Food'),zVsProduct:sum('foodGross')-foodActual},beverage:{zReport:sum('beverageGross'),productActual:bevActual,expected:expected('Beverage'),actualVsExpected:bevActual-expected('Beverage'),zVsProduct:sum('beverageGross')-bevActual},missingMenuPriceLines:0}};
+ }
+ const api={
+  getBootstrapData:bootstrap,getDailySummary:d=>dailyCalc(st.daily[d]||null),saveDailySummary:x=>{st.daily[x.date]={...x,date:x.date};save();return dailyCalc(st.daily[x.date])},
+  getProductSales:d=>st.products[d]||[],replaceProductSales:(d,e)=>{const b=bootstrap(),by=Object.fromEntries(b.allMenu.map(x=>[x.id,x]));st.products[d]=(e||[]).filter(x=>x.category&&(x.itemId||x.item)&&Number(x.qty||0)>0).map(x=>{const m=by[String(x.itemId||'').split('::')[0]]||{};return {date:d,category:x.category,item:x.item||m.item||'',till:m.till||'',type:x.category==='Open Food'?'Food':m.type||'Food',id:x.itemId||'',qty:Number(x.qty||0),sales:Number(x.sales||0),implied:Number(x.qty||0)*Number(m.price||0),variance:Number(x.sales||0)-Number(x.qty||0)*Number(m.price||0)}});save();return st.products[d]},
+  getProductSalesDerived:d=>{const r=st.products[d]||[];return {productLines:r.length,itemsSold:r.reduce((a,x)=>a+x.qty,0),totalSales:r.reduce((a,x)=>a+x.sales,0),foodGross:r.filter(x=>x.type==='Food').reduce((a,x)=>a+x.sales,0),beverageGross:r.filter(x=>x.type==='Beverage').reduce((a,x)=>a+x.sales,0)}},
+  getStaffHours:d=>st.hours[d]||[],replaceStaffHours:(d,e)=>{const by=Object.fromEntries(st.staff.map(x=>[x.id,x]));st.hours[d]=(e||[]).filter(x=>x.staffId&&(x.clockIn||x.regular)).map(x=>{const q=by[x.staffId],ci=norm(x.clockIn),co=norm(x.clockOut),reg=ci&&co?dur(ci,co):Number(x.regular||0),oi=norm(x.overtimeClockIn),oo=norm(x.overtimeClockOut),ot=x.overtimeEnabled&&oi&&oo?dur(oi,oo):Number(x.overtime||0),mult=Number(x.overtimeMultiplier||1);return {...x,date:d,name:q.name,role:q.role,wage:q.wage,clockIn:ci,clockOut:co,regular:reg,overtime:ot,overtimeMultiplier:mult,labourCost:money(reg*q.wage+ot*q.wage*mult)}});save();return st.hours[d]},
+  getDailyLabourControl:d=>{const actual=(st.hours[d]||[]).reduce((a,x)=>a+x.labourCost,0),budget=Number(st.budgets[d]||0);return {date:d,budget,actual,variance:budget-actual}},saveDailyLabourBudget:(d,b)=>{st.budgets[d]=Number(b||0);save();return {date:d,budget:Number(b||0)}},
+  getDashboard:dashboard,
+  saveStaffMember:x=>{if(!x.id)x.id='S'+String(st.staff.length+1).padStart(3,'0');const i=st.staff.findIndex(q=>q.id===x.id);if(i>=0)st.staff[i]={...st.staff[i],...x};else st.staff.push(x);save();return x},setStaffActive:(id,a)=>{const x=st.staff.find(q=>q.id===id);if(x)x.active=a;save();return true},
+  saveMenuItem:x=>{if(!x.id)x.id='M'+String(st.menu.length+1).padStart(3,'0');const i=st.menu.findIndex(q=>q.id===x.id);if(i>=0)st.menu[i]={...st.menu[i],...x};else st.menu.push(x);save();return x},setMenuItemActive:(id,a)=>{const x=st.menu.find(q=>q.id===id);if(x)x.active=a;save();return true},deleteMenuItem:id=>{if(Object.values(st.products).flat().some(x=>String(x.id).split('::')[0]===id))throw new Error('This item has historical Product Sales. Deactivate it instead.');st.menu=st.menu.filter(x=>x.id!==id);save();return true},
+  saveAppDraft:(t,d,p)=>{st.drafts[t+'|'+d]={payload:p,updatedAt:new Date().toISOString()};save();return true},getAppDraft:(t,d)=>st.drafts[t+'|'+d]||null,discardAppDraft:(t,d)=>{delete st.drafts[t+'|'+d];save();return true},saveProductDraft:(d,g)=>api.saveAppDraft('Product Sales',d,{groups:g}),getProductDraft:d=>{const q=st.drafts['Product Sales|'+d];return q?{groups:q.payload.groups,updatedAt:q.updatedAt}:null},discardProductDraft:d=>api.discardAppDraft('Product Sales',d),
+  getRota:w=>({weekStart:w,rows:st.rota[w]||[]}),saveRota:(w,e)=>{st.rota[w]=e||[];save();return {weekStart:w,rows:st.rota[w]}},getUpdateStatus:v=>({currentVersion:'6.0',updateAvailable:false,critical:false,message:'Portfolio demo is current.'})
+ };
+ return {call:(fn,args)=>{if(!api[fn])throw new Error('Demo API: '+fn+' is not implemented');return api[fn](...args)},reset:()=>{localStorage.removeItem(KEY);location.reload()}};
+})();
+window.google=window.google||{};
+google.script={run:new Proxy({}, {get(_t,prop){if(prop==='withSuccessHandler')return cb=>{window.__demoSuccess=cb;return google.script.run};if(prop==='withFailureHandler')return cb=>{window.__demoFail=cb;return google.script.run};return (...args)=>{setTimeout(()=>{try{const r=DemoAPI.call(prop,args);Promise.resolve(r).then(x=>window.__demoSuccess&&window.__demoSuccess(x)).catch(e=>window.__demoFail&&window.__demoFail(e))}catch(e){window.__demoFail&&window.__demoFail(e)}},0)}}})};
+</script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+const APP_VERSION='6.0';
+let BOOT={menu:[],allMenu:[],staff:[],allStaff:[],settings:{},dates:[],categories:[]};
+const money=n=>'£'+Number(n||0).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct=n=>(Number(n||0)*100).toFixed(1)+'%';
+const today=()=>new Date().toISOString().slice(0,10);
+function status(msg){let s=document.getElementById('status');s.textContent=msg;s.style.display='block';setTimeout(()=>s.style.display='none',2500)}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+function syncBusinessDate(value,sourceId){
+  const v=String(value||'');if(!v)return;
+  ['dashDate','dailyDate','prodDate','staffDate'].forEach(id=>{if(id!==sourceId){const el=document.getElementById(id);if(el)el.value=v;}});
+}
+function call(fn,...args){return new Promise((res,rej)=>google.script.run.withSuccessHandler(res).withFailureHandler(e=>{status(e.message||e);rej(e)})[fn](...args))}
+async function init(){
+  BOOT=await call('getBootstrapData');
+  ['dashDate','dailyDate','prodDate','staffDate'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('dashStartDate').value=BOOT.dates.length?BOOT.dates[BOOT.dates.length-1]:today();
+  document.getElementById('dashEndDate').value=BOOT.dates[0]||today();
+  toggleCustomRange();
+  document.getElementById('headerDate').textContent=new Date().toLocaleDateString('en-GB');document.getElementById('appVersion').textContent='v'+APP_VERSION;
+  document.getElementById('historyDate').innerHTML=BOOT.dates.map(d=>`<option>${d}</option>`).join('');
+  buildDailyForm(); renderMenu(); renderStaffManagement(); staffRows=[{}];renderStaffRows();prodGroups=[{category:'',items:[]}];renderProductGroups(); loadDashboard();
+  setTimeout(()=>checkForUpdates(false),800);clearInterval(updatePollTimer);updatePollTimer=setInterval(()=>checkForUpdates(false),300000);
+}
+function buildDailyForm(){
+  const fields=[
+    ['totalSales','Total Sales Excl Gratuity'],['covers','Covers'],['transactions','Transactions'],['serviceCharge','Service Charge'],
+    ['gratuity','Gratuity'],['beverageGross','Beverage Gross'],['foodGross','Food Gross'],['discounts','Discounts'],
+    ['comps','Comps'],['wastage','Wastage'],['voidValue','Void Value'],['cash','Cash'],['card','Card'],['otherTender','Other Tender'],
+    ['cashTenderCount','Cash Tender Count'],['cardTenderCount','Card Tender Count']
+  ];
+  dailyForm.innerHTML=fields.map(([id,l])=>`<div><label>${l}</label><input type="number" step="0.01" id="d_${id}" oninput="scheduleDailyDraftSave()"></div>`).join('');
+}
+
+let dailyDraftTimer=null,dailyDraftSaving=false;
+function dailyDraftPayload(){const data={};document.querySelectorAll('#dailyForm input').forEach(i=>data[i.id.replace('d_','')]=i.value);return data}
+function scheduleDailyDraftSave(){if(!dailyDate.value)return;clearTimeout(dailyDraftTimer);if(window.dailyDraftStatus){dailyDraftStatus.textContent='Draft changes pending…';dailyDraftStatus.className='pill'};try{localStorage.setItem('ks_daily_draft_'+dailyDate.value,JSON.stringify({updatedAt:new Date().toISOString(),payload:dailyDraftPayload()}))}catch(e){};dailyDraftTimer=setTimeout(saveDailyDraftNow,900)}
+async function saveDailyDraftNow(){if(dailyDraftSaving||!dailyDate.value)return;dailyDraftSaving=true;try{await call('saveAppDraft','Daily Z',dailyDate.value,dailyDraftPayload());if(window.dailyDraftStatus){dailyDraftStatus.textContent='Draft saved '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});dailyDraftStatus.className='pill ok'}}catch(e){if(window.dailyDraftStatus){dailyDraftStatus.textContent='Backend draft failed — browser draft retained';dailyDraftStatus.className='pill bad'}}finally{dailyDraftSaving=false}}
+async function restoreDailyDraft(date){let d=null;try{d=await call('getAppDraft','Daily Z',date)}catch(e){};if(!d){try{const raw=localStorage.getItem('ks_daily_draft_'+date);if(raw){const x=JSON.parse(raw);d={payload:x.payload,updatedAt:x.updatedAt}}}catch(e){}};if(d&&d.payload&&Object.keys(d.payload).length){const when=d.updatedAt?new Date(d.updatedAt):null;if(confirm(`An unfinished Daily Z draft exists for ${date}${when?' from '+when.toLocaleString('en-GB'):''}.\n\nOK = Resume draft\nCancel = Keep completed/saved data`)){Object.keys(d.payload).forEach(k=>{const el=document.getElementById('d_'+k);if(el)el.value=d.payload[k]});if(window.dailyDraftStatus){dailyDraftStatus.textContent='Resumed unfinished draft';dailyDraftStatus.className='pill ok'};return true}}return false}
+
+async function refreshDailyFromProducts(force){
+  if(!dailyDate.value)return;
+  const d=await call('getProductSalesDerived',dailyDate.value);
+  if(window.dailyProductInfo)dailyProductInfo.innerHTML=`Product Sales: <b>${d.productLines}</b> lines / <b>${d.itemsSold}</b> items / <b>${money(d.totalSales)}</b> gross. Food ${money(d.foodGross)} • Beverage ${money(d.beverageGross)}`;
+  const totalEl=document.getElementById('d_totalSales'),foodEl=document.getElementById('d_foodGross'),bevEl=document.getElementById('d_beverageGross');
+  if(force||!totalEl.value)totalEl.value=Number(d.totalSales||0).toFixed(2);
+  if(force||!foodEl.value)foodEl.value=Number(d.foodGross||0).toFixed(2);
+  if(force||!bevEl.value)bevEl.value=Number(d.beverageGross||0).toFixed(2);
+  if(force)status('Daily Z sales fields refreshed from Product Sales');
+}
+async function loadDaily(){
+  const d=dailyDate.value;if(!d)return; const x=await call('getDailySummary',d);
+  if(!x){document.querySelectorAll('#dailyForm input').forEach(i=>i.value='');dailyChecks.textContent='No existing Daily Z entry for this date.';}
+  else{Object.keys(x).forEach(k=>{let el=document.getElementById('d_'+k);if(el)el.value=x[k]});dailyChecks.innerHTML=`Sales check: <span class="pill ${x.salesCheck?'ok':'bad'}">${x.salesCheck?'OK':'CHECK'}</span> &nbsp; Tender check: <span class="pill ${x.tenderCheck?'ok':'bad'}">${x.tenderCheck?'OK':'CHECK'}</span><br><br>Net Sales: ${money(x.netSales)} | VAT: ${money(x.tax)} | Avg Spend: ${money(x.averageSpend)} | Payment Total: ${money(x.paymentTotal)}`;}
+  await refreshDailyFromProducts(false);await restoreDailyDraft(d);
+}
+async function saveDaily(){
+  let data={date:dailyDate.value}; document.querySelectorAll('#dailyForm input').forEach(i=>data[i.id.replace('d_','')]=i.value);
+  const x=await call('saveDailySummary',data); await call('discardAppDraft','Daily Z',dailyDate.value);try{localStorage.removeItem('ks_daily_draft_'+dailyDate.value)}catch(e){};if(window.dailyDraftStatus){dailyDraftStatus.textContent='Completed report saved — draft cleared';dailyDraftStatus.className='pill ok'}; status('Daily summary saved'); await initLite(); loadDaily();
+}
+async function initLite(){BOOT=await call('getBootstrapData');document.getElementById('historyDate').innerHTML=BOOT.dates.map(d=>`<option>${d}</option>`).join('')}
+
+
+// Product Sales autosave: browser recovery + date-locked backend recovery.
+// The draft date and data snapshot are captured when the edit happens, so a later
+// Business Date change can never save the previous day's work under the new date.
+let productDraftTimer=null,productDraftSaving=false;
+const PRODUCT_DRAFT_SCHEMA='v558';
+function cloneJson(x){return JSON.parse(JSON.stringify(x))}
+function productLocalKey(date){return 'ks_product_draft_'+PRODUCT_DRAFT_SCHEMA+'_'+String(date||'')}
+function meaningfulProductLines(groups){
+  let n=0;(groups||[]).forEach(g=>(g.items||[]).forEach(r=>{if(r.itemId||r.item||Number(r.qty||0)>0||Number(r.sales||0)!==0)n++}));return n;
+}
+function productEntriesFromGroups(groups){
+  const out=[];(groups||[]).forEach(g=>(g.items||[]).forEach(r=>{
+    if(!g.category)return;
+    if(String(g.category)==='Open Food'){
+      if(!String(r.item||'').trim())return;
+      out.push({category:'Open Food',itemId:'',item:String(r.item||'').trim(),qty:1,sales:Number(r.sales||0)});return;
+    }
+    if(!r.itemId||Number(r.qty||0)<=0)return;
+    const m=menuItemById(r.itemId),qty=Number(r.qty||0),expected=qty*Number(m?.price||0);
+    const sales=(r.sales===''||r.sales===null||typeof r.sales==='undefined')?expected:Number(r.sales||0);
+    out.push({category:String(g.category),itemId:String(r.itemId),item:String(r.item||''),qty,sales});
+  }));return out;
+}
+function productSignature(entries){
+  return (entries||[]).map(x=>({id:String(x.itemId||x.id||''),category:String(x.category||''),item:String(x.item||''),qty:Number(x.qty||0),sales:Math.round(Number(x.sales||0)*100)/100}))
+    .sort((a,b)=>(a.id+'|'+a.category+'|'+a.item).localeCompare(b.id+'|'+b.category+'|'+b.item))
+    .map(x=>`${x.id}|${x.category}|${x.item}|${x.qty}|${x.sales.toFixed(2)}`).join('~');
+}
+function savedRowsSignature(rows){return productSignature((rows||[]).map(r=>({itemId:r.id,category:r.category,item:r.item,qty:r.qty,sales:r.sales})))}
+function saveProductDraftLocal(date,groups){
+  const d=String(date||'');if(!d)return;
+  // An empty working state is deliberate and must be recoverable; otherwise previously
+  // saved rows reappear after the user clears a day.
+  try{localStorage.setItem(productLocalKey(d),JSON.stringify({updatedAt:new Date().toISOString(),groups:cloneJson(groups||[]),explicit:true}))}catch(e){}
+}
+function scheduleProductDraftSave(){
+  const draftDate=String(prodDate.value||'');if(!draftDate)return;
+  const snapshot=cloneJson(prodGroups);
+  saveProductDraftLocal(draftDate,snapshot);
+  if(window.productDraftStatus){productDraftStatus.textContent='Draft changes pending…';productDraftStatus.className='pill'}
+  clearTimeout(productDraftTimer);
+  productDraftTimer=setTimeout(()=>saveProductDraftNow(draftDate,snapshot),1200);
+}
+async function saveProductDraftNow(date,groups){
+  const draftDate=String(date||prodDate.value||'');
+  const snapshot=cloneJson(groups||prodGroups);
+  if(productDraftSaving||!draftDate)return;
+  productDraftSaving=true;
+  try{
+    await call('saveProductDraft',draftDate,snapshot);
+    if(window.productDraftStatus&&prodDate.value===draftDate){productDraftStatus.textContent='Draft saved '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});productDraftStatus.className='pill ok'}
+  }catch(e){
+    if(window.productDraftStatus&&prodDate.value===draftDate){productDraftStatus.textContent='Backend draft failed — browser draft retained';productDraftStatus.className='pill bad'}
+  }finally{productDraftSaving=false}
+}
+async function restoreProductDraftIfAvailable(date,savedRows){
+  let serverDraft=null,localDraft=null;
+  try{serverDraft=await call('getProductDraft',date)}catch(e){}
+  try{const raw=localStorage.getItem(productLocalKey(date));if(raw)localDraft=JSON.parse(raw)}catch(e){}
+  const candidates=[serverDraft,localDraft].filter(d=>d&&Array.isArray(d.groups));
+  let draft=candidates.sort((a,b)=>new Date(b.updatedAt||0)-new Date(a.updatedAt||0))[0]||null;
+  const savedSig=savedRowsSignature(savedRows||[]);
+  if(draft){
+    const draftSig=productSignature(productEntriesFromGroups(draft.groups));
+    // A stale draft that is identical to the completed report must never hide the saved report.
+    if(savedSig&&draftSig===savedSig){
+      try{await call('discardProductDraft',date)}catch(e){}
+      try{localStorage.removeItem(productLocalKey(date))}catch(e){}
+      draft=null;
+    }
+  }
+  if(draft){
+    const when=draft.updatedAt?new Date(draft.updatedAt):null;
+    const savedMsg=(savedRows||[]).length?`\n\nA completed report with ${(savedRows||[]).length} lines is also saved.`:'';
+    if(confirm(`An unfinished Product Sales draft exists for ${date}${when?' from '+when.toLocaleString('en-GB'):''}.${savedMsg}\n\nOK = Resume unfinished draft\nCancel = Load the completed saved report`)){
+      prodGroups=cloneJson(draft.groups);if(!prodGroups.length)prodGroups=[{category:'',items:[]}];renderProductGroups();
+      if(window.productDraftStatus){productDraftStatus.textContent='Resumed unfinished draft';productDraftStatus.className='pill ok'}return;
+    }
+  }
+  prodGroups=groupProductRows(savedRows||[]);if(!prodGroups.length)prodGroups=[{category:'',items:[]}];renderProductGroups();
+}
+async function saveAllDraftsBeforeUpdate(){
+  const results=[];
+  if(dailyDate?.value){try{await call('saveAppDraft','Daily Z',dailyDate.value,dailyDraftPayload());results.push('Daily Z');}catch(e){throw new Error('Daily Z draft could not be protected. '+(e.message||e));}}
+  if(prodDate?.value){try{const d=prodDate.value,g=cloneJson(prodGroups);saveProductDraftLocal(d,g);await call('saveProductDraft',d,g);results.push('Product Sales');}catch(e){throw new Error('Product Sales draft could not be protected. '+(e.message||e));}}
+  if(staffDate?.value){try{await call('saveAppDraft','Staff Hours',staffDate.value,staffDraftPayload());results.push('Staff Hours');}catch(e){throw new Error('Staff Hours draft could not be protected. '+(e.message||e));}}
+  if(document.getElementById('rota')?.classList.contains('active') && rotaWeekDate?.value){
+    try{const monday=mondayIso(rotaWeekDate.value);const payload=collectRotaWorkingState();await call('saveAppDraft','ROTA',monday,payload);try{localStorage.setItem('ks_rota_draft_'+monday,JSON.stringify({updatedAt:new Date().toISOString(),payload}))}catch(e){}results.push('ROTA');}catch(e){throw new Error('ROTA draft could not be protected. '+(e.message||e));}
+  }
+  return results;
+}
+let pendingUpdate=null,updatePollTimer=null;
+async function checkForUpdates(manual=false){
+  try{const x=await call('getUpdateStatus',APP_VERSION);pendingUpdate=x;const badge=document.getElementById('updateState');
+    if(x.updateAvailable){badge.textContent='v'+x.currentVersion+' available';badge.className='pill bad';showUpdateModal(x);}
+    else{badge.textContent='Up to date';badge.className='pill ok';if(manual)status('You are using the latest version.');}
+  }catch(e){const badge=document.getElementById('updateState');if(badge){badge.textContent='Update check unavailable';badge.className='pill';}}
+}
+function showUpdateModal(x){
+  updateVersionBadge.textContent='v'+x.currentVersion+' available';updateTitle.textContent=x.title||'Update available';
+  updatePublished.textContent=x.publishedDate?'Published '+x.publishedDate:'';updateNotes.innerHTML=(x.notes||[]).map(n=>`<li>${String(n)}</li>`).join('');
+  updateCriticalMsg.style.display=x.critical?'block':'none';updateLaterBtn.style.display=x.critical?'none':'inline-block';updateSaveStatus.textContent='';updateModal.classList.add('show');
+}
+function dismissUpdate(){if(pendingUpdate?.critical)return;updateModal.classList.remove('show');try{sessionStorage.setItem('ks_update_later_'+pendingUpdate.currentVersion,'1')}catch(e){}}
+async function applyAvailableUpdate(){
+  updateNowBtn.disabled=true;updateLaterBtn.disabled=true;updateSaveStatus.textContent='Protecting unfinished work before update…';
+  try{const saved=await saveAllDraftsBeforeUpdate();updateSaveStatus.textContent=(saved.length?'Protected: '+saved.join(', ')+'. ':'No unfinished dated entry detected. ')+'Loading latest version…';
+    setTimeout(()=>{const base=window.location.href.split('?')[0];window.location.href=base+'?refresh='+Date.now()},500);
+  }catch(e){updateSaveStatus.textContent='Update stopped: '+(e.message||e);updateNowBtn.disabled=false;updateLaterBtn.disabled=!!pendingUpdate?.critical;}
+}
+async function updateApp(){await checkForUpdates(true);if(!pendingUpdate?.updateAvailable){status('App is already up to date.')}}
+
+let prodGroups=[];
+
+function baseMenuItemId(id){return String(id||'').split('::')[0]}
+function menuItemById(id){
+  const baseId=baseMenuItemId(id);
+  return BOOT.menu.find(m=>String(m.id)===baseId) || (BOOT.allMenu||[]).find(m=>String(m.id)===baseId);
+}
+function productDisplayName(m){return m ? (m.variant ? `${m.item} — ${m.variant}` : m.item) : '';}
+function splitSalesEntryLabels(m){
+  if(!m||!m.item)return [];
+
+  const itemName=String(m.item||'').trim();
+  const variant=String(m.variant||'').trim();
+
+  function splitSlashOr(text){
+    if(!text)return [];
+    let parts=[];
+    if(text.includes('/')){
+      parts=text.split('/').map(x=>x.trim()).filter(Boolean);
+    }else if(/\s+or\s+/i.test(text)){
+      parts=text.split(/\s+or\s+/i).map(x=>x.trim()).filter(Boolean);
+    }
+    return parts.length>1?parts:[];
+  }
+
+  // 1) Split the actual Menu Item name first.
+  const itemParts=splitSlashOr(itemName);
+  if(itemParts.length){
+    // Carry a shared trailing product noun where the first option is abbreviated.
+    // Example: "Blueberry / Strawberry Daiquiri"
+    // becomes "Blueberry Daiquiri" + "Strawberry Daiquiri".
+    if(itemParts.length===2){
+      const firstWords=itemParts[0].split(/\s+/);
+      const secondWords=itemParts[1].split(/\s+/);
+      if(firstWords.length===1 && secondWords.length>1){
+        itemParts[0]=itemParts[0]+' '+secondWords.slice(1).join(' ');
+      }
+    }
+    return itemParts;
+  }
+
+  // 2) If the item name itself has no slash, split a slash/or Variant.
+  // Example: The Ultimate Sandwich — Steak/Wagyu
+  // becomes two independent Product Sales choices.
+  const variantParts=splitSlashOr(variant);
+  if(variantParts.length){
+    return variantParts.map(v=>`${itemName} — ${v}`);
+  }
+
+  return [];
+}
+function salesEntryChoices(m){
+  const split=splitSalesEntryLabels(m);
+  if(!split.length)return [{value:String(m.id),label:productDisplayName(m),baseId:String(m.id)}];
+  return split.map(label=>({
+    value:String(m.id)+'::'+encodeURIComponent(label),
+    label:label,
+    baseId:String(m.id)
+  }));
+}
+function productEntryLabel(id,m){
+  const raw=String(id||'');
+  if(raw.includes('::')){
+    try{return decodeURIComponent(raw.split('::').slice(1).join('::'))}catch(e){}
+  }
+  return m?.item||'';
+}
+
+function groupProductRows(rows){
+  const map={};
+  (rows||[]).forEach(r=>{
+    const cat=r.category||'';
+    if(!map[cat])map[cat]={category:cat,items:[]};
+    const storedId=String(r.itemId||r.id||'');
+    const baseId=baseMenuItemId(storedId);
+    const m=(BOOT.allMenu||BOOT.menu||[]).find(x=>String(x.id||'')===baseId) ||
+      (BOOT.allMenu||BOOT.menu||[]).find(x=>String(x.category||'')===String(cat)&&String(x.item||'')===String(r.item||''));
+    const expected=Number(r.qty||0)*Number(m?.price||0);
+    const actual=Number(r.sales||0);
+    map[cat].items.push({
+      itemId:storedId||m?.id||'',
+      item:r.item||m?.item||'',
+      qty:r.qty||'',
+      sales:r.sales??'',
+      salesManual:Math.abs(actual-expected)>=0.005
+    });
+  });
+  return Object.values(map);
+}
+
+function refreshProductSalesSearchCategories(){
+  const el=document.getElementById('productSalesSearchCategory'); if(!el)return;
+  const current=el.value;
+  const cats=[...new Set((BOOT.menu||[]).map(m=>String(m.category||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  el.innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option value="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" ${c===current?'selected':''}>${c}</option>`).join('');
+}
+function searchProductSalesMenu(q){
+  const box=document.getElementById('productSalesSearchResults'); if(!box)return;
+  refreshProductSalesSearchCategories();
+  const term=String(q||'').trim().toLowerCase(),cat=document.getElementById('productSalesSearchCategory')?.value||'';
+  if(!term&&!cat){box.style.display='none';box.innerHTML='';return;}
+  const matches=(BOOT.menu||[]).filter(m=>m.active!==false&&(!cat||String(m.category||'')===cat)&&(!term||[m.item,m.till,m.category,m.id,m.variant].some(v=>String(v||'').toLowerCase().includes(term)))).slice(0,40);
+  box.style.display='block';
+  box.innerHTML=matches.length?matches.map(m=>`<div class="product-search-result"><div><strong>${productDisplayName(m)}</strong><small>${m.category||'Uncategorised'} • ${m.type||'Food'} • ${money(m.price||0)}${m.till&&m.till!==m.item?' • Till: '+m.till:''}</small></div><button class="gold small" onclick="addSearchedProduct('${String(m.id).replace(/'/g,"\\'")}')">Add</button></div>`).join(''):'<div class="product-search-result"><div><strong>No matching menu items</strong><small>Try part of the item or till name.</small></div></div>';
+}
+function clearProductSalesSearch(){
+  const q=document.getElementById('productSalesSearch'),c=document.getElementById('productSalesSearchCategory'),r=document.getElementById('productSalesSearchResults');
+  if(q)q.value='';if(c)c.value='';if(r){r.innerHTML='';r.style.display='none'}
+}
+function addSearchedProduct(itemId){
+  const m=menuItemById(itemId);if(!m){alert('Menu item not found.');return;}
+  const duplicate=duplicateLocationForItem(itemId,-1,-1);if(duplicate){alert(`${productDisplayName(m)} is already entered under ${duplicate.category||'its category'}.`);return;}
+  const category=String(m.category||'Uncategorised');
+  let gi=prodGroups.findIndex(g=>String(g.category||'')===category);
+  if(gi<0){prodGroups.push({category,items:[]});gi=prodGroups.length-1;}
+  prodGroups[gi].items.push({itemId:String(itemId),item:productEntryLabel(itemId,m),qty:'',sales:'',salesManual:false});
+  renderProductGroupsPreserveScroll();scheduleProductDraftSave();clearProductSalesSearch();
+  requestAnimationFrame(()=>document.getElementById(`prodRow-${gi}-${prodGroups[gi].items.length-1}`)?.scrollIntoView({behavior:'smooth',block:'center'}));
+}
+
+function addProductCategory(category=''){prodGroups.push({category,items:[]});renderProductGroupsPreserveScroll();scheduleProductDraftSave()}
+function clearProductWorkingDay(){if(!prodDate.value){alert('Choose a Business Date first.');return}if(!confirm(`Clear every Product Sales line currently shown for ${prodDate.value}?\n\nThis clears the WORKING DRAFT only. The completed saved report remains safe unless you later replace it with a completed save.`))return;prodGroups=[{category:'',items:[]}];renderProductGroups();scheduleProductDraftSave();if(window.productDraftStatus){productDraftStatus.textContent='Empty working draft pending save…';productDraftStatus.className='pill'}}
+function removeProductCategory(i){if(!confirm('Remove this category section and all items currently entered under it?'))return;prodGroups.splice(i,1);if(!prodGroups.length)prodGroups=[{category:'',items:[]}];renderProductGroupsPreserveScroll();scheduleProductDraftSave()}
+function setProductCategory(i,v){prodGroups[i].category=v;prodGroups[i].items=[];renderProductGroupsPreserveScroll();scheduleProductDraftSave()}
+function addProductItem(i,row={}){const open=String(prodGroups[i]?.category||'')==='Open Food';prodGroups[i].items.push({itemId:open?'':(row.itemId||''),item:row.item||'',qty:open?1:(row.qty||''),sales:row.sales??'',salesManual:open?true:!!row.salesManual});renderProductGroupsPreserveScroll();scheduleProductDraftSave()}
+function setOpenFoodName(i,j,v){const row=prodGroups[i].items[j];row.item=v;row.itemId='';row.qty=1;row.salesManual=true;updateCategoryFooterAndSummary(i);scheduleProductDraftSave()}
+function setOpenFoodSales(i,j,v){const row=prodGroups[i].items[j];row.sales=v;row.qty=1;row.salesManual=true;updateCategoryFooterAndSummary(i);scheduleProductDraftSave()}
+function removeProductItem(i,j){prodGroups[i].items.splice(j,1);renderProductGroupsPreserveScroll();scheduleProductDraftSave()}
+function renderProductGroupsPreserveScroll(){
+  const y=window.scrollY;
+  renderProductGroups();
+  requestAnimationFrame(()=>window.scrollTo({top:y,left:0,behavior:'auto'}));
+}
+
+function updateProductGrossDisplay(i,j,updateGrossValue){
+  const row=prodGroups[i]?.items?.[j]; if(!row)return;
+  const m=menuItemById(row.itemId);
+  const price=Number(m?.price||0);
+  const qty=Number(row.qty||0);
+  const expected=qty*price;
+  const actual=(row.sales===''||row.sales===null||typeof row.sales==='undefined')?expected:Number(row.sales||0);
+  const delta=actual-expected;
+
+  const gross=document.getElementById(`prodGross-${i}-${j}`);
+  const expectedEl=document.getElementById(`prodExpected-${i}-${j}`);
+  const priceEl=document.getElementById(`prodPriceNote-${i}-${j}`);
+
+  if(gross){
+    gross.classList.remove('gross-auto','gross-over','gross-under','gross-manual');
+    gross.classList.add(Math.abs(delta)<0.005?'gross-auto':(delta>0?'gross-over':'gross-under'));
+    if(row.salesManual)gross.classList.add('gross-manual');
+    if(updateGrossValue)gross.value=Number.isFinite(actual)?actual.toFixed(2):'';
+  }
+  if(expectedEl)expectedEl.textContent=`Expected: ${money(expected)}${row.salesManual?' • manual':''}`;
+  if(priceEl)priceEl.textContent=m?`Menu price: ${money(price)}`:'';
+  updateCategoryFooterAndSummary(i);
+}
+
+
+function updateCategoryFooterAndSummary(groupIndex){
+  const card=document.querySelectorAll('.product-category-card')[groupIndex],g=prodGroups[groupIndex];
+  if(card&&g){
+    let qty=0,gross=0;
+    (g.items||[]).forEach(row=>{if(row.itemId||row.item){qty+=Number(row.qty||0);gross+=Number(row.sales||0)}});
+    const units=card.querySelector('.category-units strong');
+    const grossEl=card.querySelector('.category-gross strong');
+    const grossLabel=card.querySelector('.category-gross small');
+    if(units)units.textContent=qty;
+    if(grossEl)grossEl.textContent=money(gross);
+    if(grossLabel)grossLabel.textContent=`${g.category||'Category'} Gross Sales`;
+  }
+  renderProductSummary();
+}
+
+function duplicateLocationForItem(itemId,currentGroup,currentRow){
+  if(!itemId)return null;
+  for(let gi=0;gi<prodGroups.length;gi++){
+    for(let ri=0;ri<(prodGroups[gi].items||[]).length;ri++){
+      if(gi===currentGroup&&ri===currentRow)continue;
+      if(String(prodGroups[gi].items[ri].itemId||'')===String(itemId))return {gi,ri,category:prodGroups[gi].category};
+    }
+  }
+  return null;
+}
+
+function setProductItem(i,j,id){
+  const duplicate=duplicateLocationForItem(id,i,j);
+  if(duplicate){
+    const m=menuItemById(id);
+    alert(`${productEntryLabel(id,m)||productDisplayName(m||{})||'This exact product'} has already been added in ${duplicate.category||'another category section'}.\n\nThe same Menu Item ID cannot be entered twice for one business date.\n\nGenuinely separate till products such as Strawberry Daiquiri / Raspberry Daiquiri or Rice / Noodles must exist as separate Menu items/IDs; those can then be entered separately.`);
+    renderProductGroupsPreserveScroll();
+    return;
+  }
+  const m=menuItemById(id),row=prodGroups[i].items[j];
+  row.itemId=id;row.item=productEntryLabel(id,m);row.salesManual=false;
+  row.sales=(Number(row.qty||0)*Number(m?.price||0)).toFixed(2);
+  updateProductGrossDisplay(i,j,true);
+  scheduleProductDraftSave();
+}
+function setProductQty(i,j,v){
+  const row=prodGroups[i].items[j];
+  row.qty=v;
+  if(!row.salesManual){
+    const m=menuItemById(row.itemId);
+    row.sales=(Number(v||0)*Number(m?.price||0)).toFixed(2);
+  }
+  updateProductGrossDisplay(i,j,!row.salesManual);
+  scheduleProductDraftSave();
+}
+
+function setProductSales(i,j,v,manual=true){
+  const row=prodGroups[i].items[j];
+  row.sales=v;
+  row.salesManual=manual;
+  // Do not rebuild the whole Product Sales page while the user is typing.
+  updateProductGrossDisplay(i,j,false);
+  scheduleProductDraftSave();
+}
+
+function productCategories(){return [...new Set([...(BOOT.categories||[]),'Open Food'])]}
+function categoryOptions(selected){return `<option value="">Select category…</option>`+productCategories().map(c=>`<option value="${c}" ${c===selected?'selected':''}>${c}</option>`).join('')}
+function itemOptions(category,selectedId,selectedName){
+  return `<option value="">Select item…</option>`+BOOT.menu.filter(m=>m.category===category).flatMap(m=>salesEntryChoices(m)).map(ch=>`<option value="${ch.value}" ${String(ch.value)===String(selectedId)?'selected':''}>${ch.label}</option>`).join('');
+}
+function currentDuplicateItemIds(){
+  const counts={};
+  prodGroups.forEach(g=>(g.items||[]).forEach(row=>{
+    const id=String(row.itemId||'');
+    if(id)counts[id]=(counts[id]||0)+1;
+  }));
+  return new Set(Object.keys(counts).filter(id=>counts[id]>1));
+}
+
+function productCategoryStats(){
+  const stats={};let totalQty=0,totalGross=0;
+  prodGroups.forEach(g=>{
+    const category=g.category||'Uncategorised';
+    if(!stats[category])stats[category]={category,qty:0,gross:0,lines:0};
+    (g.items||[]).forEach(row=>{
+      if(!row.itemId&&!row.item)return;
+      const qty=Number(row.qty||0),gross=Number(row.sales||0);
+      stats[category].qty+=qty;stats[category].gross+=gross;stats[category].lines++;
+      totalQty+=qty;totalGross+=gross;
+    });
+  });
+  return {rows:Object.values(stats).filter(x=>x.lines>0),totalQty,totalGross};
+}
+
+function renderProductSummary(){
+  const body=document.getElementById('productCategorySummary'),grand=document.getElementById('productSummaryGrand');
+  if(!body||!grand)return;
+  const s=productCategoryStats();
+  grand.textContent=`${s.totalQty} items • ${money(s.totalGross)}`;
+  body.innerHTML=s.rows.length?s.rows.map(x=>`<tr><td>${x.category}</td><td>${x.qty}</td><td>${money(x.gross)}</td></tr>`).join('')
+    :`<tr><td colspan="3">No Product Sales entered yet.</td></tr>`;
+}
+
+function renderProductGroups(){
+  const duplicates=currentDuplicateItemIds();
+  productGroups.innerHTML=prodGroups.map((g,i)=>{
+    const isOpenFood=String(g.category||'')==='Open Food';
+    const items=(BOOT.menu||[]).filter(m=>String(m.category||'')===String(g.category||''));
+    let categoryQty=0,categoryGross=0;
+    const rows=(g.items||[]).map((row,j)=>{
+      if(isOpenFood){
+        const actual=Number(row.sales||0); if(String(row.item||'').trim()||actual){categoryQty+=1;categoryGross+=actual}
+        return `<tr id="prodRow-${i}-${j}">
+          <td colspan="2"><label style="margin:0 0 4px">Open Food item name</label><input value="${String(row.item||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="e.g. Special steak adjustment" oninput="setOpenFoodName(${i},${j},this.value)"></td>
+          <td><label style="margin:0 0 4px">Total amount</label><input type="number" min="0" step="0.01" value="${row.sales??''}" placeholder="0.00" oninput="setOpenFoodSales(${i},${j},this.value)"><div class="price-note">Not added to Menu Master • treated as Food</div></td>
+          <td><button class="danger small" onclick="removeProductItem(${i},${j})">Remove</button></td>
+        </tr>`;
+      }
+      const selected=menuItemById(row.itemId);
+      const price=Number(selected?.price||0),qty=Number(row.qty||0),expected=qty*price;
+      const actual=(row.sales===''||row.sales===null||typeof row.sales==='undefined')?expected:Number(row.sales||0);
+      const manuallyEdited=!!row.salesManual,delta=actual-expected;
+      const grossClass=Math.abs(delta)<0.005?'gross-auto':(delta>0?'gross-over':'gross-under');
+      const duplicate=duplicates.has(String(row.itemId||''));
+      if(row.itemId||row.item){categoryQty+=qty;categoryGross+=actual}
+      return `<tr id="prodRow-${i}-${j}" class="${duplicate?'duplicate-row':''}">
+        <td>
+          <select onchange="setProductItem(${i},${j},this.value)">
+            <option value="">Select item</option>
+            ${items.flatMap(m=>salesEntryChoices(m)).map(ch=>`<option value="${ch.value}" ${String(row.itemId||'')===String(ch.value)?'selected':''}>${ch.label}</option>`).join('')}
+          </select>
+          <div id="prodPriceNote-${i}-${j}" class="price-note">${selected?`Menu price: ${money(price)}`:''}</div>
+          <div id="prodDuplicate-${i}-${j}" class="duplicate-note">${duplicate?'Duplicate exact item — remove one before saving.':''}</div>
+        </td>
+        <td><input id="prodQty-${i}-${j}" type="number" min="0" step="1" value="${row.qty??''}" oninput="setProductQty(${i},${j},this.value)"></td>
+        <td>
+          <input id="prodGross-${i}-${j}" class="${grossClass}${manuallyEdited?' gross-manual':''}" type="number" min="0" step="0.01"
+            value="${Number.isFinite(actual)?actual.toFixed(2):''}" oninput="setProductSales(${i},${j},this.value,true)">
+          <div id="prodExpected-${i}-${j}" class="price-note">Expected: ${money(expected)}${manuallyEdited?' • manual':''}</div>
+        </td>
+        <td><button class="danger small" onclick="removeProductItem(${i},${j})">Remove</button></td>
+      </tr>`;
+    }).join('');
+    return `<div class="product-category-card">
+      <div class="product-category-head">
+        <div><label>Category</label><select onchange="setProductCategory(${i},this.value)">
+          <option value="">Select category</option>
+          ${productCategories().map(c=>`<option ${String(g.category||'')===String(c)?'selected':''}>${c}</option>`).join('')}
+        </select></div>
+        <button class="danger small" onclick="removeProductCategory(${i})">Remove Category</button>
+      </div>
+      <div class="table-scroll"><table>
+        <thead><tr>${isOpenFood?`<th colspan="2">Open Food Item</th><th>Total Amount</th><th></th>`:`<th>Item</th><th>Qty Sold</th><th>Till Gross Sales</th><th></th>`}</tr></thead>
+        <tbody>${rows||`<tr><td colspan="4" style="color:#7c7165">No items added yet.</td></tr>`}</tbody>
+      </table></div>
+      <div class="product-category-footer">
+        <button class="secondary small" onclick="addProductItem(${i})">${isOpenFood?'+ Add Open Food':'+ Add Item'}</button>
+        <div class="category-summary-pair">
+          <div class="category-footer-stat category-units">
+            <small>Total Units</small>
+            <strong>${categoryQty}</strong>
+          </div>
+          <div class="category-footer-stat category-gross">
+            <small>${g.category||'Category'} Gross Sales</small>
+            <strong>${money(categoryGross)}</strong>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  renderProductSummary();
+}
+
+async function loadProducts(){
+  const requestedDate=String(prodDate.value||'');
+  if(!requestedDate){alert('Please choose a Business Date first.');return;}
+  try{
+    status('Loading Product Sales…');
+    const rows=await call('getProductSales',requestedDate);
+    // If the user changed date while the server was responding, never paint the old date into the new date screen.
+    if(String(prodDate.value||'')!==requestedDate){status('Business Date changed — previous load ignored');return;}
+    await restoreProductDraftIfAvailable(requestedDate,rows);
+    const savedCount=(rows||[]).length;
+    status(savedCount?`Loaded ${savedCount} saved Product Sales lines for ${requestedDate}`:`No completed Product Sales report is saved for ${requestedDate}`);
+  }catch(e){console.error(e);alert('Could not load Product Sales for this date.\n\n'+(e?.message||e));}
+}
+
+function setBusinessDateInputsDisabled(disabled){['dashDate','dailyDate','prodDate','staffDate'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=!!disabled})}
+
+async function saveProducts(){
+  const businessDate=String(prodDate.value||'');
+  if(!businessDate){alert('Please choose a Business Date first.');return;}
+
+  const flat=[];const errors=[];const seenItemIds=new Map();
+  prodGroups.forEach((group,gi)=>{
+    (group.items||[]).forEach((row,ii)=>{
+      const hasAny=row.itemId||row.item||row.qty||row.sales;if(!hasAny)return;
+      const isOpenFood=String(group.category||'')==='Open Food';
+      const qty=isOpenFood?1:Number(row.qty||0),m=menuItemById(row.itemId),expected=isOpenFood?Number(row.sales||0):qty*Number(m?.price||0);
+      const actual=(row.sales===''||row.sales===null||typeof row.sales==='undefined')?expected:Number(row.sales||0);
+      if(!group.category)errors.push(`Section ${gi+1}, line ${ii+1}: choose a category.`);
+      if(isOpenFood){
+        if(!String(row.item||'').trim())errors.push(`Open Food, line ${ii+1}: enter an item name.`);
+        if(!Number.isFinite(actual)||actual<0)errors.push(`Open Food ${row.item||'line '+(ii+1)}: enter a valid total amount.`);
+        if(String(row.item||'').trim()&&Number.isFinite(actual)&&actual>=0)flat.push({category:'Open Food',itemId:'',item:String(row.item).trim(),qty:1,sales:actual});
+        return;
+      }
+      if(!row.itemId)errors.push(`${group.category||'Section '+(gi+1)}, line ${ii+1}: choose an exact item/variant.`);
+      if(qty<=0)errors.push(`${row.item||'Line '+(ii+1)}: quantity must be greater than 0.`);
+      if(row.itemId){const existing=seenItemIds.get(String(row.itemId));if(existing)errors.push(`${row.item||'Product'} is duplicated. It already appears in ${existing.category}, line ${existing.line}.`);else seenItemIds.set(String(row.itemId),{category:group.category||`Section ${gi+1}`,line:ii+1});}
+      if(group.category&&row.itemId&&qty>0)flat.push({category:group.category,itemId:row.itemId,item:row.item,qty,sales:actual});
+    });
+  });
+  if(errors.length){alert(`Please correct these entries before saving:\n\n${errors.slice(0,12).join('\n')}${errors.length>12?'\n…and more.':''}`);return;}
+  if(!flat.length){alert('There are no Product Sales lines to save. Nothing was changed in the database.');return;}
+
+  const totalQty=flat.reduce((a,x)=>a+Number(x.qty||0),0),totalSales=flat.reduce((a,x)=>a+Number(x.sales||0),0);
+  const expectedSig=productSignature(flat);
+  if(!confirm(`Save the COMPLETE Product Sales report for ${businessDate}?\n\n${flat.length} product lines\n${totalQty} items sold\n${money(totalSales)} gross product sales\n\nThis replaces only Product Sales already saved for ${businessDate}. Other dates are not touched.`))return;
+
+  const btn=document.getElementById('saveProductsBtn');btn.disabled=true;const oldText=btn.textContent;btn.textContent='Saving & verifying…';setBusinessDateInputsDisabled(true);
+  try{
+    // Keep a recovery draft locked to the exact date being saved until database verification succeeds.
+    const draftSnapshot=cloneJson(prodGroups);saveProductDraftLocal(businessDate,draftSnapshot);await saveProductDraftNow(businessDate,draftSnapshot);
+    const result=await call('replaceProductSales',businessDate,flat);
+    if(String(result?.date||'')!==businessDate)throw new Error(`Date safety check failed. Requested ${businessDate} but the server reported ${result?.date||'unknown date'}. No draft was cleared.`);
+    const verified=await call('getProductSales',businessDate);
+    const verifiedSig=savedRowsSignature(verified);
+    const verifiedQty=(verified||[]).reduce((a,x)=>a+Number(x.qty||0),0);
+    const verifiedSales=(verified||[]).reduce((a,x)=>a+Number(x.sales||0),0);
+    if(verifiedSig!==expectedSig||verified.length!==flat.length||verifiedQty!==totalQty||Math.abs(verifiedSales-totalSales)>0.005){
+      throw new Error(`Save verification failed for ${businessDate}. Expected ${flat.length} lines / ${totalQty} items / ${money(totalSales)}, but reloaded ${verified.length} lines / ${verifiedQty} items / ${money(verifiedSales)}. Your recovery draft has been retained — do not re-enter the report.`);
+    }
+    await call('discardProductDraft',businessDate);try{localStorage.removeItem(productLocalKey(businessDate))}catch(e){}
+    prodDate.value=businessDate;syncBusinessDate(businessDate,'prodDate');prodGroups=groupProductRows(verified);if(!prodGroups.length)prodGroups=[{category:'',items:[]}];renderProductGroups();
+    if(window.productDraftStatus){productDraftStatus.textContent=`Saved & verified ${businessDate} — recovery draft cleared`;productDraftStatus.className='pill ok'}
+    status(`Verified ${result.savedLines} lines / ${result.totalQty} items / ${money(result.totalSales)}`);loadDashboard();
+    alert(`Product Sales saved and verified successfully.\n\nBusiness Date: ${businessDate}\n${result.savedLines} product lines\n${result.totalQty} items sold\n${money(result.totalSales)} gross sales\n\nThe report was reloaded from the database and matched before the recovery draft was cleared.`);
+  }catch(e){console.error(e);prodDate.value=businessDate;syncBusinessDate(businessDate,'prodDate');alert('Product Sales was NOT marked complete.\n\n'+(e?.message||e)+'\n\nYour recovery draft has been retained. Do not re-enter the report.');}
+  finally{setBusinessDateInputsDisabled(false);btn.disabled=false;btn.textContent=oldText;}
+}
+
+let staffDraftTimer=null,staffDraftSaving=false;
+function staffDraftPayload(){return {budget:dailyStaffBudget.value,rows:cloneJson(staffRows)}}
+function meaningfulStaffDraft(payload){if(!payload)return false;if(String(payload.budget??'').trim()!=='')return true;return (payload.rows||[]).some(r=>r.staffId||r.clockIn||r.clockOut||r.overtimeEnabled||r.overtimeClockIn||r.overtimeClockOut||r.notes)}
+function scheduleStaffDraftSave(){const draftDate=String(staffDate.value||'');if(!draftDate)return;const payload=staffDraftPayload();if(!meaningfulStaffDraft(payload))return;clearTimeout(staffDraftTimer);if(window.staffDraftStatus){staffDraftStatus.textContent='Draft changes pending…';staffDraftStatus.className='pill'};try{localStorage.setItem('ks_staff_draft_'+draftDate,JSON.stringify({updatedAt:new Date().toISOString(),payload}))}catch(e){};staffDraftTimer=setTimeout(()=>saveStaffDraftNow(draftDate,payload),900)}
+async function saveStaffDraftNow(date,payload){const draftDate=String(date||staffDate.value||'');const snapshot=payload||staffDraftPayload();if(staffDraftSaving||!draftDate||!meaningfulStaffDraft(snapshot))return;staffDraftSaving=true;try{await call('saveAppDraft','Staff Hours',draftDate,snapshot);if(window.staffDraftStatus&&staffDate.value===draftDate){staffDraftStatus.textContent='Draft saved '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});staffDraftStatus.className='pill ok'}}catch(e){if(window.staffDraftStatus&&staffDate.value===draftDate){staffDraftStatus.textContent='Backend draft failed — browser draft retained';staffDraftStatus.className='pill bad'}}finally{staffDraftSaving=false}}
+async function restoreStaffDraft(date){let d=null;try{d=await call('getAppDraft','Staff Hours',date)}catch(e){};if(!d){try{const raw=localStorage.getItem('ks_staff_draft_'+date);if(raw){const x=JSON.parse(raw);d={payload:x.payload,updatedAt:x.updatedAt}}}catch(e){}};if(d&&d.payload){const when=d.updatedAt?new Date(d.updatedAt):null;if(confirm(`An unfinished Staff Hours draft exists for ${date}${when?' from '+when.toLocaleString('en-GB'):''}.\n\nOK = Resume draft\nCancel = Keep completed/saved data`)){staffRows=Array.isArray(d.payload.rows)&&d.payload.rows.length?d.payload.rows:[{}];dailyStaffBudget.value=d.payload.budget??dailyStaffBudget.value;renderStaffRows();updateLabourControlPreview();if(window.staffDraftStatus){staffDraftStatus.textContent='Resumed unfinished draft';staffDraftStatus.className='pill ok'};return true}}return false}
+
+function normaliseClock(v){
+  const raw=String(v??'').trim(); if(!raw)return '';
+  let d=raw.replace(/[^0-9]/g,'');
+  if(d.length===3)d='0'+d;
+  if(d.length!==4)return null;
+  const h=Number(d.slice(0,2)),m=Number(d.slice(2));
+  if(h<0||h>23||m<0||m>59)return null;
+  return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+}
+function clockMinutes(v){const n=normaliseClock(v);if(!n)return null;const [h,m]=n.split(':').map(Number);return h*60+m}
+function clockHoursBetween(a,b){const x=clockMinutes(a),y=clockMinutes(b);if(x===null||y===null)return null;let mins=y-x;if(mins<0)mins+=24*60;return Math.round((mins/60)*100)/100}
+function refreshStaffRowHours(row){
+  const reg=clockHoursBetween(row.clockIn,row.clockOut); if(reg!==null)row.regular=reg; else if(row.clockIn||row.clockOut)row.regular=0;
+  if(row.overtimeEnabled){const ot=clockHoursBetween(row.overtimeClockIn,row.overtimeClockOut);if(ot!==null)row.overtime=ot;else if(row.overtimeClockIn||row.overtimeClockOut)row.overtime=0}else row.overtime=0;
+  row.overtimeMultiplier=Number(row.overtimeMultiplier||1)||1;
+}
+function setStaffClock(i,field,v){const r=staffRows[i];r[field]=v;refreshStaffRowHours(r);updateLabourControlPreview();scheduleStaffDraftSave();const cell=document.getElementById(`staffHours-${i}`);if(cell)cell.textContent=Number(r.regular||0).toFixed(2)}
+function formatStaffClock(i,field,el){const n=normaliseClock(el.value);if(n===null){alert('Please enter a valid 24-hour time, for example 1630 or 16:30.');el.focus();return}el.value=n||'';staffRows[i][field]=n||'';refreshStaffRowHours(staffRows[i]);renderStaffRows();updateLabourControlPreview();scheduleStaffDraftSave()}
+function setStaffOvertime(i,v){staffRows[i].overtimeEnabled=(v==='Yes');if(!staffRows[i].overtimeEnabled){staffRows[i].overtime=0;staffRows[i].overtimeClockIn='';staffRows[i].overtimeClockOut=''}renderStaffRows();updateLabourControlPreview();scheduleStaffDraftSave()}
+function addStaffRow(row={}){staffRows.push({...row,overtimeEnabled:!!row.overtimeEnabled,overtimeMultiplier:row.overtimeMultiplier||1});renderStaffRows();updateLabourControlPreview();scheduleStaffDraftSave()}
+function renderStaffRows(){
+  staffBody.innerHTML=staffRows.map((r,i)=>{
+    refreshStaffRowHours(r);
+    const regularDisplay=(r.clockIn&&r.clockOut)?Number(r.regular||0).toFixed(2):(Number(r.regular||0)>0?Number(r.regular).toFixed(2)+'*':'0.00');
+    const main=`<tr><td><select onchange="staffRows[${i}].staffId=this.value;updateLabourControlPreview();scheduleStaffDraftSave()"><option></option>${BOOT.staff.map(s=>`<option value="${s.id}" ${s.id===r.staffId?'selected':''}>${s.name||s.id} — ${s.role||''}</option>`).join('')}</select></td><td><input inputmode="numeric" placeholder="16:30" value="${r.clockIn||''}" oninput="setStaffClock(${i},'clockIn',this.value)" onblur="formatStaffClock(${i},'clockIn',this)"></td><td><input inputmode="numeric" placeholder="23:45" value="${r.clockOut||''}" oninput="setStaffClock(${i},'clockOut',this.value)" onblur="formatStaffClock(${i},'clockOut',this)"></td><td><b class="staff-hours-value" id="staffHours-${i}">${regularDisplay}</b></td><td><select onchange="setStaffOvertime(${i},this.value)"><option ${!r.overtimeEnabled?'selected':''}>No</option><option ${r.overtimeEnabled?'selected':''}>Yes</option></select></td><td><input value="${r.notes||''}" onchange="staffRows[${i}].notes=this.value;scheduleStaffDraftSave()"></td><td><button class="danger small" onclick="staffRows.splice(${i},1);renderStaffRows();updateLabourControlPreview();scheduleStaffDraftSave()">×</button></td></tr>`;
+    const ot=r.overtimeEnabled?`<tr class="ot-detail-row"><td colspan="2"><b>Overtime details</b></td><td><label>OT Clock In</label><input inputmode="numeric" placeholder="23:45" value="${r.overtimeClockIn||''}" oninput="setStaffClock(${i},'overtimeClockIn',this.value)" onblur="formatStaffClock(${i},'overtimeClockIn',this)"></td><td><label>OT Clock Out</label><input inputmode="numeric" placeholder="01:00" value="${r.overtimeClockOut||''}" oninput="setStaffClock(${i},'overtimeClockOut',this.value)" onblur="formatStaffClock(${i},'overtimeClockOut',this)"><div class="price-note">${Number(r.overtime||0).toFixed(2)} OT hours</div></td><td><label>Multiplier</label><input type="number" min="0" step="0.1" value="${r.overtimeMultiplier||1}" oninput="staffRows[${i}].overtimeMultiplier=Number(this.value||1);updateLabourControlPreview();scheduleStaffDraftSave()"></td><td colspan="2"><div class="section-help">Default multiplier is 1×. Overnight overtime is supported.</div></td></tr>`:'';
+    return main+ot;
+  }).join('');setTimeout(updateLabourControlPreview,0)
+}
+async function loadStaffHours(allowDraft=true){
+  if(!staffDate.value){alert('Please choose a Business Date first.');return;}
+  const requestedDate=String(staffDate.value);
+  try{
+    const saved=await call('getStaffHours',requestedDate);
+    // Ignore a late response if the user changed the business date while loading.
+    if(String(staffDate.value)!==requestedDate)return;
+    staffRows=Array.isArray(saved)&&saved.length?saved:[{}];
+    renderStaffRows();
+    const control=await call('getDailyLabourControl',requestedDate);
+    if(String(staffDate.value)!==requestedDate)return;
+    dailyStaffBudget.value=Number(control.budget||0).toFixed(2);
+    actualStaffExpense.value=money(control.actual);
+    staffBudgetVariance.value=money(control.variance);
+    setVarianceStyle(control.variance);
+    if(window.staffDraftStatus){
+      staffDraftStatus.textContent=saved&&saved.length?`Loaded ${saved.length} saved staff entr${saved.length===1?'y':'ies'} for ${requestedDate}`:'No completed staff hours saved for this date';
+      staffDraftStatus.className=saved&&saved.length?'pill ok':'pill';
+    }
+    // Date selection may offer recovery of an unfinished draft. Explicit “Load Existing”
+    // always means load the completed database record and must never be overwritten by a draft.
+    if(allowDraft)await restoreStaffDraft(requestedDate);
+  }catch(e){
+    console.error(e);
+    alert('Could not load Staff Hours for '+requestedDate+'.\n\n'+(e?.message||e));
+  }
+}
+function calculateCurrentStaffExpense(){
+  const byId=Object.fromEntries((BOOT.allStaff||BOOT.staff||[]).map(s=>[s.id,s]));
+  return staffRows.reduce((sum,row)=>{
+    const st=byId[row.staffId]||{};
+    const wage=Number(st.wage||row.wage||0);
+    const regular=Number(row.regular||0);
+    const overtime=Number(row.overtime||0);
+    const mult=Number(row.overtimeMultiplier||1);
+    return sum + regular*wage + overtime*wage*mult;
+  },0);
+}
+function setVarianceStyle(v){
+  const el=document.getElementById('staffBudgetVariance');
+  if(!el)return;
+  el.style.fontWeight='700';
+  el.style.background = Number(v)>=0 ? '#def2df' : '#f5d7d7';
+}
+function updateLabourControlPreview(){
+  const actual=calculateCurrentStaffExpense();
+  const budget=Number(document.getElementById('dailyStaffBudget')?.value||0);
+  const variance=budget-actual;
+  actualStaffExpense.value=money(actual);
+  staffBudgetVariance.value=money(variance);
+  setVarianceStyle(variance);
+}
+async function saveLabourBudgetOnly(){
+  const x=await call('saveDailyLabourBudget',staffDate.value,Number(dailyStaffBudget.value||0));
+  status('Daily staff budget saved');
+  actualStaffExpense.value=money(x.actual);
+  staffBudgetVariance.value=money(x.variance);
+  setVarianceStyle(x.variance);
+}
+async function saveStaffHours(){
+  if(!staffDate.value){alert('Please choose a Business Date first.');return;}
+  const errors=[];staffRows.forEach((r,i)=>{if(!r.staffId&&!r.clockIn&&!r.clockOut&&!r.overtimeEnabled)return;if(!r.staffId)errors.push(`Staff row ${i+1}: choose a staff member.`);if(!r.clockIn||!r.clockOut||clockHoursBetween(r.clockIn,r.clockOut)===null)errors.push(`Staff row ${i+1}: enter valid Clock In and Clock Out times.`);if(r.overtimeEnabled&&(!r.overtimeClockIn||!r.overtimeClockOut||clockHoursBetween(r.overtimeClockIn,r.overtimeClockOut)===null))errors.push(`Staff row ${i+1}: overtime is Yes, so enter valid overtime Clock In and Clock Out times.`);refreshStaffRowHours(r)});if(errors.length){alert('Please correct Staff Hours before saving:\n\n'+errors.join('\n'));return;}
+  await call('saveDailyLabourBudget',staffDate.value,Number(dailyStaffBudget.value||0));
+  await call('replaceStaffHours',staffDate.value,staffRows);
+  await call('discardAppDraft','Staff Hours',staffDate.value);try{localStorage.removeItem('ks_staff_draft_'+staffDate.value)}catch(e){};if(window.staffDraftStatus){staffDraftStatus.textContent='Completed staff hours saved — draft cleared';staffDraftStatus.className='pill ok'};
+  status('Staff hours and budget saved');
+  await loadStaffHours(false);
+  loadDashboard();
+}
+
+function toggleCustomRange(){
+  const custom=document.getElementById('dashType').value==='Custom Date Range';
+  document.getElementById('customRangeBox').classList.toggle('active',custom);
+  document.getElementById('singleDateBox').style.display=custom?'none':'block';
+  const badge=document.getElementById('dashPeriodBadge');
+  badge.textContent=custom?'Custom range':document.getElementById('dashType').value+' view';
+}
+async function loadDashboard(){
+  if(dashType.value!=='Custom Date Range'&&!dashDate.value){status('Select a Dashboard date to load this view.');return;}
+  const x=await call('getDashboard',dashType.value,dashDate.value,dashStartDate.value,dashEndDate.value);
+  const data=[['Gross Sales',money(x.grossSales)],['Net Sales',money(x.netSales)],['Covers',x.covers],['Average Spend',money(x.averageSpend)],['Items Sold',x.itemsSold],['Labour Cost',money(x.labourCost)],['Labour %',pct(x.labourPct)],['Overtime Hours',x.overtimeHours],['Food Sales',money(x.foodSales)],['Beverage Sales',money(x.beverageSales)],['Tax / VAT',money(x.tax)],['Labour Budget',money(x.labourBudget)]];
+  kpis.innerHTML=data.map(a=>`<div class="kpi"><small>${a[0]}</small><strong>${a[1]}</strong></div>`).join('');
+  dashPeriodBadge.textContent=`${x.start} → ${x.end}`;
+  periodInfo.innerHTML=`<p><b>${x.reportType}</b>: ${x.start} → ${x.end}</p><p>Budget variance: <b>${money(x.budgetVariance)}</b></p><p>Cash ${money(x.cash)} | Card ${money(x.card)} | Other ${money(x.otherTender)}</p>`;
+  renderSalesReconciliation(x.salesReconciliation);
+  drawCategoryRevenueChart('topFoodChart','topFoodFallback','foodChartSummary',x.topFoodCategories||[],'Food',x.reportType);
+  drawCategoryRevenueChart('topBeverageChart','topBeverageFallback','beverageChartSummary',x.topBeverageCategories||[],'Beverage',x.reportType);
+  renderStaffDashboard(x);
+  renderMonthlyPayroll(x.monthlyPayroll);
+}
+
+
+function salesReconComment(label,d){
+  const expected=Number(d?.expected||0);
+  const actual=Number(d?.productActual||0);
+  const z=Number(d?.zReport||0);
+  const calcDiff=actual-expected;
+  const zDiff=z-actual;
+  const tol=.01;
+  const notes=[];
+
+  if(Math.abs(calcDiff)<=tol){
+    notes.push(`${label} Product Sales match the Menu Price × Quantity calculation.`);
+  }else if(calcDiff<0){
+    notes.push(`${label} Product Sales are ${money(Math.abs(calcDiff))} below the menu-price calculation. This can be valid for discounts, complimentary items or manual reductions; review the red Product Sales overrides if unexpected.`);
+  }else{
+    notes.push(`${label} Product Sales are ${money(calcDiff)} above the menu-price calculation. Review yellow Product Sales overrides, price changes or till surcharges.`);
+  }
+
+  if(Math.abs(zDiff)>tol){
+    notes.push(`The Daily Z-Report ${label.toLowerCase()} total is ${money(Math.abs(zDiff))} ${zDiff>0?'higher':'lower'} than the saved Product Sales total. Check for missing product lines or a Daily Z entry that needs refreshing.`);
+  }else{
+    notes.push(`The Daily Z-Report ${label.toLowerCase()} total reconciles with saved Product Sales.`);
+  }
+
+  const level=Math.abs(zDiff)>tol?'bad':(Math.abs(calcDiff)>tol?'warn':'ok');
+  return {text:notes.join(' '),level};
+}
+
+function renderSalesReconciliation(r){
+  const el=document.getElementById('salesReconciliation'); if(!el)return;
+  const rows=[['Food',r?.food],['Beverage',r?.beverage]];
+  el.innerHTML=rows.map(([label,d])=>{
+    d=d||{};
+    const c=salesReconComment(label,d);
+    return `<div class="recon-box">
+      <h4>${label}</h4>
+      <div class="recon-values">
+        <div class="recon-stat"><small>Menu calculation</small><strong>${money(d.expected)}</strong></div>
+        <div class="recon-stat"><small>Product Sales</small><strong>${money(d.productActual)}</strong></div>
+        <div class="recon-stat"><small>Daily Z total</small><strong>${money(d.zReport)}</strong></div>
+      </div>
+      <div class="recon-comment recon-${c.level}">${c.text}</div>
+    </div>`;
+  }).join('')+(Number(r?.missingMenuPriceLines||0)>0
+    ? `<div class="recon-comment recon-warn" style="grid-column:1/-1">${r.missingMenuPriceLines} Product Sales line(s) could not be matched to a current Menu price, so their saved gross was used as the expected value.</div>`:'');
+}
+
+function drawCategoryRevenueChart(chartId,fallbackId,summaryId,categories,label,reportType){
+  const fallback=document.getElementById(fallbackId),chartEl=document.getElementById(chartId),summary=document.getElementById(summaryId);
+  if(!categories||!categories.length){chartEl.innerHTML='';summary.innerHTML='';fallback.innerHTML=`No paid ${label.toLowerCase()} product sales for this period.`;return;}
+  fallback.innerHTML='';
+  const allItems=categories.flatMap(c=>(c.items||[]).map(i=>({...i,category:c.category})));
+  const leader=allItems.sort((a,b)=>Number(b.grossRevenue||0)-Number(a.grossRevenue||0))[0];
+  const topCat=categories[0];
+  summary.innerHTML=`<div class="mini-stat"><small>Highest revenue item</small><strong>${leader?.item||'—'}</strong></div><div class="mini-stat"><small>Category</small><strong>${leader?.category||'—'}</strong></div><div class="mini-stat"><small>Gross revenue</small><strong>${money(leader?.grossRevenue||0)}</strong></div>`;
+  const visible=categories.slice(0,10);
+  const seriesNames=[];visible.forEach(c=>(c.items||[]).slice(0,8).forEach(i=>{const n=`${c.category} • ${i.item}`;if(!seriesNames.includes(n))seriesNames.push(n)}));
+  const draw=()=>{
+    const data=new google.visualization.DataTable();data.addColumn('string','Menu Category');seriesNames.forEach(n=>data.addColumn('number',n));
+    visible.forEach(c=>{const row=[c.category];const vals={};(c.items||[]).slice(0,8).forEach(i=>vals[`${c.category} • ${i.item}`]=Number(i.grossRevenue||0));seriesNames.forEach(n=>row.push(vals[n]||0));data.addRow(row)});
+    new google.visualization.BarChart(chartEl).draw(data,{title:`${label} Gross Revenue by Menu Category — ${reportType}`,isStacked:true,legend:{position:'bottom',textStyle:{fontSize:9}},chartArea:{left:170,top:52,width:'68%',height:'58%'},hAxis:{title:'Gross Revenue = Units Sold × Menu Price (£)',minValue:0,format:'£#,##0',gridlines:{color:'#eee5d9'}},vAxis:{textStyle:{fontSize:11,color:'#332a22'}},backgroundColor:'transparent',height:Math.max(430,visible.length*48+180),bar:{groupWidth:'68%'}});
+  };
+  if(window.google&&google.visualization)draw();else{google.charts.load('current',{packages:['corechart']});google.charts.setOnLoadCallback(draw);}
+}
+function renderMonthlyPayroll(p){
+  const body=document.getElementById('monthlyPayrollBody'),summary=document.getElementById('monthlyPayrollSummary'),period=document.getElementById('monthlyPayrollPeriod');
+  if(!body||!summary)return;
+  p=p||{rows:[],start:'',end:'',regularPay:0,overtimePay:0,totalPay:0};
+  if(period)period.textContent=`Salary accrued from recorded Staff Hours: ${p.start||'—'} → ${p.end||'—'}.`;
+  summary.innerHTML=[['Regular pay',money(p.regularPay||0)],['Overtime pay',money(p.overtimePay||0)],['Total salary accrued',money(p.totalPay||0)]].map(a=>`<div class="mini-stat"><small>${a[0]}</small><strong>${a[1]}</strong></div>`).join('');
+  const rows=(p.rows||[]).slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'en',{sensitivity:'base'}));
+  body.innerHTML=rows.length?rows.map(r=>`<tr><td><b>${r.name||r.id}</b></td><td>${r.role||''}</td><td>${Number(r.regularHours||0).toFixed(2)}</td><td>${money(r.regularPay||0)}</td><td>${Number(r.overtimeHours||0).toFixed(2)}</td><td>${money(r.overtimePay||0)}</td><td><b>${money(r.totalPay||0)}</b></td></tr>`).join(''):'<tr><td colspan="7">No Staff Hours recorded for this month up to the selected date.</td></tr>';
+}
+
+function renderStaffDashboard(x){
+  const rows=(x.staffBreakdown||[]).slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''), 'en', {sensitivity:'base'}));
+  const avg=x.totalStaffHours?Number(x.regularLabourCost||0)/x.totalStaffHours:0;
+  staffKpis.innerHTML=[
+    ['Regular Hours',Number(x.regularHours||0).toFixed(2)],
+    ['Regular Labour Cost',money(x.regularLabourCost||0)],
+    ['Overtime Hours',Number(x.overtimeHours||0).toFixed(2)],
+    ['Overtime Spend',money(x.overtimeCost||0)],
+    ['Total Labour Cost',money(x.labourCost)]
+  ].map(a=>`<div class="kpi"><small>${a[0]}</small><strong>${a[1]}</strong></div>`).join('');
+
+  staffDashboardBody.innerHTML=rows.length?rows.map(s=>`<tr><td><b>${s.name}</b></td><td>${s.role||''}</td><td>${Number(s.regularHours||0).toFixed(2)}</td><td>${money(s.regularCost||0)}</td></tr>`).join(''):'<tr><td colspan="4">No staff hours for this period.</td></tr>';
+
+  const regularRows=rows.filter(s=>Number(s.regularHours||0)>0).slice(0,20);
+  const regularEl=document.getElementById('staffHoursChart');
+  const drawRegular=()=>{
+    if(!regularRows.length){regularEl.innerHTML='<div class="section-help">No regular staff hours for this period.</div>';return;}
+    const data=new google.visualization.DataTable();data.addColumn('string','Staff');data.addColumn('number','Regular Hours');data.addColumn({type:'string',role:'annotation'});data.addColumn({type:'string',role:'tooltip'});
+    regularRows.forEach(r=>data.addRow([r.name,Number(r.regularHours||0),Number(r.regularHours||0).toFixed(1),`${r.name}\nRegular hours: ${Number(r.regularHours||0).toFixed(2)}\nRegular labour cost: ${money(r.regularCost||0)}`]));
+    new google.visualization.BarChart(regularEl).draw(data,{title:'Regular Hours by Employee',titleTextStyle:{fontSize:16,bold:true,color:'#2a2118'},legend:{position:'none'},backgroundColor:'transparent',chartArea:{left:155,top:58,width:'62%',height:'70%'},hAxis:{title:'Regular hours',minValue:0,gridlines:{color:'#eee5d9'}},annotations:{alwaysOutside:true,textStyle:{fontSize:11,bold:true}},height:410,bar:{groupWidth:'60%'}});
+  };
+
+  const otRows=rows.filter(s=>Number(s.overtimeHours||0)>0 || Number(s.overtimeCost||0)>0);
+  const otBody=document.getElementById('overtimeDashboardBody');
+  otBody.innerHTML=otRows.length?otRows.map(s=>`<tr><td><b>${s.name}</b></td><td>${Number(s.overtimeHours||0).toFixed(2)}</td><td>${money(s.overtimeCost||0)}</td></tr>`).join(''):'<tr><td colspan="3">No overtime for this period.</td></tr>';
+  const otEl=document.getElementById('overtimeChart');
+  const drawOvertime=()=>{
+    if(!otRows.length){otEl.innerHTML='<div class="section-help" style="padding:18px">No overtime recorded for this period.</div>';return;}
+    const data=new google.visualization.DataTable();
+    data.addColumn('string','Staff');
+    data.addColumn('number','OT Hours');
+    data.addColumn({type:'string',role:'annotation'});
+    data.addColumn({type:'string',role:'tooltip'});
+    otRows.forEach(r=>data.addRow([r.name,Number(r.overtimeHours||0),Number(r.overtimeHours||0).toFixed(1),`${r.name}\nOvertime hours: ${Number(r.overtimeHours||0).toFixed(2)}\nOvertime spend: ${money(r.overtimeCost||0)}`]));
+    new google.visualization.BarChart(otEl).draw(data,{title:'Overtime Hours by Employee',titleTextStyle:{fontSize:16,bold:true,color:'#2a2118'},legend:{position:'none'},backgroundColor:'transparent',chartArea:{left:155,top:58,width:'62%',height:'68%'},hAxis:{title:'Overtime hours',minValue:0,gridlines:{color:'#eee5d9'}},annotations:{alwaysOutside:true,textStyle:{fontSize:11,bold:true}},height:380,bar:{groupWidth:'58%'}});
+  };
+  const drawAll=()=>{drawRegular();drawOvertime();};
+  if(window.google&&google.visualization)drawAll();else{google.charts.load('current',{packages:['corechart']});google.charts.setOnLoadCallback(drawAll);}
+}
+
+function renderStaffManagement(){
+  const show=document.getElementById('showInactiveStaff')?.checked;
+  const list=(BOOT.allStaff||BOOT.staff).filter(s=>show||s.active!==false);
+  staffManageBody.innerHTML=list.map(s=>`<tr>
+    <td>${s.name||s.id}</td>
+    <td>${s.role||''}</td>
+    <td>${money(s.wage)}</td>
+    <td>${Number(s.weeklyTarget||0).toFixed(1)} hrs</td>
+    <td><span class="pill ${s.active!==false?'ok':'bad'}">${s.active!==false?'Active':'Inactive'}</span></td>
+    <td class="action-cell"><button onclick="editStaffMember('${s.id}')">Edit</button>
+    <button class="${s.active!==false?'secondary':'gold'}" onclick="toggleStaff('${s.id}',${s.active===false})">${s.active!==false?'Deactivate':'Reactivate'}</button></td>
+  </tr>`).join('');
+}
+async function editStaffMember(id){
+  const s=id?(BOOT.allStaff||[]).find(x=>String(x.id)===String(id)):{active:true};
+  const name=prompt('Staff name',s?.name||''); if(name===null)return;
+  const role=prompt('Role',s?.role||''); if(role===null)return;
+  const wage=prompt('Hourly wage (£)',s?.wage||0); if(wage===null)return;
+  const weeklyTarget=prompt('Weekly target hours',s?.weeklyTarget||0); if(weeklyTarget===null)return;
+  const notes=prompt('Notes',s?.notes||''); if(notes===null)return;
+  await call('saveStaffMember',{...(s||{}),name,role,wage:Number(wage),weeklyTarget:Number(weeklyTarget),notes,active:s?.active!==false});
+  status('Staff record saved');
+  BOOT=await call('getBootstrapData'); renderStaffManagement(); renderStaffRows(); if(document.getElementById('rotaBody'))renderRota(rotaRows||[]);
+}
+async function toggleStaff(id,makeActive){
+  const s=(BOOT.allStaff||[]).find(x=>String(x.id)===String(id)); if(!s)return;
+  if(!makeActive&&!confirm(`Deactivate ${s.name||s.id}? Historical hours will remain.`))return;
+  await call('setStaffActive',id,makeActive);
+  status(makeActive?'Staff reactivated':'Staff deactivated');
+  BOOT=await call('getBootstrapData'); renderStaffManagement(); renderStaffRows(); if(document.getElementById('rotaBody'))renderRota(rotaRows||[]);
+}
+
+function renderMenu(){
+ const show=document.getElementById('showInactive')?.checked;
+ const q=String(document.getElementById('menuSearch')?.value||'').trim().toLowerCase();
+ const list=(BOOT.allMenu||BOOT.menu).filter(m=>(show||m.active!==false)&&(!q||[m.id,m.item,m.till,m.category,m.type,m.variant].some(v=>String(v||'').toLowerCase().includes(q))));
+ menuBody.innerHTML=list.map(m=>`<tr><td>${m.item}</td><td>${m.till}</td><td>${m.category}</td><td>${m.type}</td><td>${money(m.price)}</td><td><span class="pill ${m.active!==false?'ok':'bad'}">${m.active!==false?'Active':'Inactive'}</span></td><td class="action-cell"><button onclick="editMenuItem('${m.id}')">Edit</button> <button class="${m.active!==false?'secondary':'gold'}" onclick="toggleMenuItem('${m.id}',${m.active===false})">${m.active!==false?'Deactivate':'Reactivate'}</button> <button class="danger" onclick="deleteMenuItemUi('${m.id}')">Delete</button></td></tr>`).join('');
+}
+function editMenuItem(id){
+ const m=id?(BOOT.allMenu||[]).find(x=>String(x.id)===String(id)):{active:true,type:'Food'};
+ menuEditId.value=m?.id||'';menuEditName.value=m?.item||'';menuEditTill.value=m?.till||'';menuEditType.value=m?.type||'Food';menuEditVariant.value=m?.variant||'';menuEditPrice.value=Number(m?.price||0);
+ const cats=[...new Set((BOOT.categories||[]).filter(Boolean))].sort();menuEditCategory.innerHTML='<option value="">Select category…</option>'+cats.map(c=>`<option value="${String(c).replace(/"/g,'&quot;')}">${c}</option>`).join('')+'<option value="__NEW__">+ New category…</option>';
+ if(m?.category&&cats.includes(m.category))menuEditCategory.value=m.category;else if(m?.category){menuEditCategory.innerHTML+=`<option value="${m.category}">${m.category}</option>`;menuEditCategory.value=m.category}
+ menuNewCategory.value='';toggleNewMenuCategory();menuEditorTitle.textContent=id?'Edit Menu Item':'Add Menu Item';menuEditorModal.style.display='flex';setTimeout(()=>menuEditName.focus(),0);
+}
+function toggleNewMenuCategory(){menuNewCategoryBox.style.display=menuEditCategory.value==='__NEW__'?'block':'none'}
+function closeMenuEditor(){menuEditorModal.style.display='none'}
+async function saveMenuEditor(){
+ const id=menuEditId.value;const original=id?(BOOT.allMenu||[]).find(x=>String(x.id)===String(id)):null;
+ const item=menuEditName.value.trim(),till=menuEditTill.value.trim()||item;let category=menuEditCategory.value;if(category==='__NEW__')category=menuNewCategory.value.trim();
+ const type=menuEditType.value,variant=menuEditVariant.value.trim(),price=Number(menuEditPrice.value||0);
+ if(!item){alert('Enter a menu item name.');return}if(!category){alert('Choose a category or enter a new category.');return}if(!Number.isFinite(price)||price<0){alert('Enter a valid price.');return}
+ await call('saveMenuItem',{...(original||{}),id:id||undefined,item,till,category,type,variant,price,active:original?.active!==false});status('Menu item saved');closeMenuEditor();BOOT=await call('getBootstrapData');renderMenu();
+}
+async function toggleMenuItem(id,makeActive){
+ const m=(BOOT.allMenu||[]).find(x=>String(x.id)===String(id)); if(!m)return;
+ if(!makeActive&&!confirm(`Deactivate ${m.item}? Historical sales will remain.`))return;
+ await call('setMenuItemActive',id,makeActive); status(makeActive?'Item reactivated':'Item deactivated');BOOT=await call('getBootstrapData');renderMenu();
+}
+async function deleteMenuItemUi(id){
+ const m=(BOOT.allMenu||[]).find(x=>String(x.id)===String(id));if(!m)return;
+ if(!confirm(`Permanently delete ${m.item}?
+
+This is only allowed if the item has NEVER been used in Product Sales. Historical items must be deactivated instead.`))return;
+ try{await call('deleteMenuItem',id);status('Unused menu item permanently deleted');BOOT=await call('getBootstrapData');renderMenu()}catch(e){alert(e?.message||e)}
+}
+
+// ---------- ROTA ----------
+let rotaRows=[];
+function mondayIso(dateStr){const d=dateStr?new Date(dateStr+'T12:00:00'):new Date();const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return d.toISOString().slice(0,10)}
+function addDaysIso(iso,n){const d=new Date(iso+'T12:00:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function initRotaPage(){if(!rotaWeekDate.value)rotaWeekDate.value=dashDate.value||today();renderRota([])}
+function rotaKey(staffId,date){return String(staffId)+'|'+String(date)}
+function collectRotaWorkingState(){const shifts=[];const notes={};document.querySelectorAll('.rota-note').forEach(el=>notes[el.dataset.staff]=el.value.trim());document.querySelectorAll('.rota-shift').forEach(el=>shifts.push({staffId:el.dataset.staff,date:el.dataset.date,value:el.value.trim(),notes:notes[el.dataset.staff]||''}));return {weekStart:mondayIso(rotaWeekDate.value||today()),shifts};}
+function parseShiftText(v){const raw=String(v||'').trim();if(!raw)return {clockIn:'',clockOut:''};const p=raw.split(/\s*[-–—]\s*/);if(p.length!==2)return null;const a=normaliseClock(p[0]),b=normaliseClock(p[1]);if(a===null||b===null)return null;return {clockIn:a,clockOut:b}}
+function renderRota(savedRows){
+ const monday=mondayIso(rotaWeekDate.value||today());rotaWeekLabel.textContent=`Week: ${monday} → ${addDaysIso(monday,6)}`;
+ const map={};(savedRows||rotaRows||[]).forEach(r=>map[rotaKey(r.staffId,r.date)]={...r});rotaRows=Object.values(map);
+ const days=Array.from({length:7},(_,i)=>addDaysIso(monday,i));const labels=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+ rotaHead.innerHTML='<tr><th>Staff</th>'+days.map((d,i)=>`<th>${labels[i]}<br><small>${d.slice(8,10)}/${d.slice(5,7)}</small></th>`).join('')+'<th>Notes</th></tr>';
+ rotaBody.innerHTML=(BOOT.staff||[]).slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''))).map(st=>{const cells=days.map(d=>{const r=map[rotaKey(st.id,d)]||{};const value=r.clockIn&&r.clockOut?`${r.clockIn}-${r.clockOut}`:'';return `<td><input class="rota-shift" placeholder="16:30-23:00" value="${value}" data-staff="${st.id}" data-date="${d}" oninput="scheduleRotaDraftSave()"></td>`}).join('');const note=(rotaRows.find(r=>r.staffId===st.id&&r.notes)||{}).notes||'';return `<tr><td><b>${st.name||st.id}</b><div class="price-note">${st.role||''}</div></td>${cells}<td><input class="rota-note" data-staff="${st.id}" value="${note}" oninput="scheduleRotaDraftSave()"></td></tr>`}).join('');
+}
+let rotaDraftTimer=null;function scheduleRotaDraftSave(){if(!rotaWeekDate.value)return;clearTimeout(rotaDraftTimer);const monday=mondayIso(rotaWeekDate.value);const payload=collectRotaWorkingState();try{localStorage.setItem('ks_rota_draft_'+monday,JSON.stringify({updatedAt:new Date().toISOString(),payload}))}catch(e){}rotaDraftTimer=setTimeout(()=>call('saveAppDraft','ROTA',monday,payload).catch(()=>{}),1000);}
+async function loadRota(){if(!rotaWeekDate.value)rotaWeekDate.value=today();const monday=mondayIso(rotaWeekDate.value);const x=await call('getRota',monday);rotaRows=x.rows||[];renderRota(rotaRows);status('ROTA week loaded')}
+async function saveRotaPage(){
+ if(!rotaWeekDate.value){alert('Choose a week first.');return}const monday=mondayIso(rotaWeekDate.value);const entries=[];const notes={};document.querySelectorAll('.rota-note').forEach(el=>notes[el.dataset.staff]=el.value.trim());const errors=[];
+ document.querySelectorAll('.rota-shift').forEach(el=>{const raw=el.value.trim();if(!raw)return;const p=parseShiftText(raw);if(!p){errors.push(`${el.dataset.date}: use e.g. 1630-2300 or 16:30-23:00`);return}el.value=`${p.clockIn}-${p.clockOut}`;entries.push({staffId:el.dataset.staff,date:el.dataset.date,clockIn:p.clockIn,clockOut:p.clockOut,notes:notes[el.dataset.staff]||''})});
+ if(errors.length){alert('Please correct the ROTA:\n\n'+errors.slice(0,10).join('\n'));return}if(!confirm(`Save ROTA for week ${monday}?\n\n${entries.length} planned shifts will replace the current saved rota for this week.`))return;
+ const x=await call('saveRota',monday,entries);rotaRows=x.rows||[];renderRota(rotaRows);status('ROTA saved')
+}
+
+async function loadHistory(){
+  const d=historyDate.value; const s=await call('getDailySummary',d); const p=await call('getProductSales',d); const h=await call('getStaffHours',d);
+  historyOut.innerHTML=`<div class="card"><h3>${d}</h3>${s?`<p>Sales ${money(s.totalSales)} | Covers ${s.covers} | Avg Spend ${money(s.averageSpend)} | Food ${money(s.foodGross)} | Beverage ${money(s.beverageGross)}</p><p>Cash ${money(s.cash)} | Card ${money(s.card)} | VAT ${money(s.tax)}</p>`:'No Daily Summary'}<p><b>${p.length}</b> product lines; <b>${p.reduce((a,x)=>a+x.qty,0)}</b> items sold.</p><p><b>${h.length}</b> staff-hour entries; labour cost ${money(h.reduce((a,x)=>a+x.labourCost,0))}.</p></div>`;
+}
+init();
+
+
+</script>
+</body>
+</html>

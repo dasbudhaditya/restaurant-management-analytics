@@ -518,11 +518,36 @@
     .portfolio-banner{background:#7b1f25;color:#fff;padding:10px 18px;text-align:center;font-weight:700;border-bottom:1px solid #a97a38}
     .portfolio-banner span{color:#f2d6a7;font-weight:600}
     .demo-reset{background:#a97a38;color:#17130e;margin-left:10px;padding:6px 10px}
+
+    /* v6.1 Product Sales sticky search: below header and mobile nav, no overlap */
+    #products .product-search-card{
+      position:sticky!important;top:var(--ks-search-sticky-top,80px)!important;
+      z-index:8;padding:11px 14px;margin-bottom:16px;
+      border:1px solid #cdb89a;box-shadow:0 8px 24px rgba(37,24,11,.12);
+      background:#fffdf9;scroll-margin-top:var(--ks-search-sticky-top,80px);
+    }
+    #products .product-search-card h3{margin:0 0 5px}
+    #products .product-search-card .section-help{margin:0 0 7px;font-size:12px}
+    #products .product-search-results{max-height:min(240px,30vh)}
+    #products .product-category-card{scroll-margin-top:calc(var(--ks-search-sticky-top,80px) + 170px)}
+    #products .product-search-grid,#products .product-search-grid>*{min-width:0}
+    #products .product-search-grid input,#products .product-search-grid select{width:100%;min-width:0}
+    @media(max-width:760px){
+      #products .product-search-card{padding:9px 10px}
+      #products .product-search-card .section-help{display:none}
+      #products .product-search-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:7px}
+      #products .product-search-grid button{padding:10px 9px}
+    }
+    @media(max-width:480px){
+      #products .product-search-grid{grid-template-columns:minmax(0,1fr) auto}
+      #products .product-search-grid>div:nth-child(2){grid-column:1 / -1;grid-row:2}
+      #products .product-search-grid>div:nth-child(3){grid-column:2;grid-row:1}
+    }
 </style>
 </head>
 <body>
 <div class="portfolio-banner">PORTFOLIO DEMO <span>• Fictional sample data • Changes stay only in this browser</span><button class="demo-reset" onclick="DemoAPI.reset()">Reset Demo</button></div>
-<header><b>Restaurant Management Analytics — Portfolio Demo</b><div style="display:flex;align-items:center;gap:10px"><span id="appVersion">v6.0</span><span id="updateState" class="pill" style="background:#2d2823;color:#d8c7ad;padding:5px 9px">Checking…</span><button class="gold" style="padding:7px 11px" onclick="checkForUpdates(true)">Check Updates</button><span id="headerDate"></span></div></header>
+<header><b>Restaurant Management Analytics — Portfolio Demo</b><div style="display:flex;align-items:center;gap:10px"><span id="appVersion">v6.1</span><span id="updateState" class="pill" style="background:#2d2823;color:#d8c7ad;padding:5px 9px">Checking…</span><button class="gold" style="padding:7px 11px" onclick="checkForUpdates(true)">Check Updates</button><span id="headerDate"></span></div></header>
 <div style="max-width:1500px;margin:10px auto 0;padding:0 18px"><div id="demoBanner" style="background:#fff3cd;border:1px solid #e3c36a;padding:10px 16px;border-radius:10px;font-weight:700;color:#5b4610">PORTFOLIO DEMO — Staff names and operational figures are fictional sample data. This deployment is completely separate from the live restaurant system.</div></div>
 <div class="wrap">
 <nav>
@@ -602,7 +627,7 @@
       <h3 style="margin-top:0">Find & Add Product</h3>
       <p class="section-help">Search the Menu Master and add a missed item directly into its correct Product Sales category.</p>
       <div class="product-search-grid">
-        <div><label>Search product</label><input id="productSalesSearch" placeholder="Item name, till name, category or ID" oninput="searchProductSalesMenu(this.value)" onkeydown="if(event.key==='Escape')clearProductSalesSearch()"></div>
+        <div><label>Search product</label><input id="productSalesSearch" placeholder="Item name, till name, category or ID" oninput="scheduleProductSalesSearch(this.value)" onkeydown="if(event.key==='Escape')clearProductSalesSearch()"></div>
         <div><label>Filter category</label><select id="productSalesSearchCategory" onchange="searchProductSalesMenu(productSalesSearch.value)"><option value="">All categories</option></select></div>
         <div><button class="secondary" onclick="clearProductSalesSearch()">Clear</button></div>
       </div>
@@ -772,7 +797,7 @@ const DemoAPI=(()=>{
   saveStaffMember:x=>{if(!x.id)x.id='S'+String(st.staff.length+1).padStart(3,'0');const i=st.staff.findIndex(q=>q.id===x.id);if(i>=0)st.staff[i]={...st.staff[i],...x};else st.staff.push(x);save();return x},setStaffActive:(id,a)=>{const x=st.staff.find(q=>q.id===id);if(x)x.active=a;save();return true},
   saveMenuItem:x=>{if(!x.id)x.id='M'+String(st.menu.length+1).padStart(3,'0');const i=st.menu.findIndex(q=>q.id===x.id);if(i>=0)st.menu[i]={...st.menu[i],...x};else st.menu.push(x);save();return x},setMenuItemActive:(id,a)=>{const x=st.menu.find(q=>q.id===id);if(x)x.active=a;save();return true},deleteMenuItem:id=>{if(Object.values(st.products).flat().some(x=>String(x.id).split('::')[0]===id))throw new Error('This item has historical Product Sales. Deactivate it instead.');st.menu=st.menu.filter(x=>x.id!==id);save();return true},
   saveAppDraft:(t,d,p)=>{st.drafts[t+'|'+d]={payload:p,updatedAt:new Date().toISOString()};save();return true},getAppDraft:(t,d)=>st.drafts[t+'|'+d]||null,discardAppDraft:(t,d)=>{delete st.drafts[t+'|'+d];save();return true},saveProductDraft:(d,g)=>api.saveAppDraft('Product Sales',d,{groups:g}),getProductDraft:d=>{const q=st.drafts['Product Sales|'+d];return q?{groups:q.payload.groups,updatedAt:q.updatedAt}:null},discardProductDraft:d=>api.discardAppDraft('Product Sales',d),
-  getRota:w=>({weekStart:w,rows:st.rota[w]||[]}),saveRota:(w,e)=>{st.rota[w]=e||[];save();return {weekStart:w,rows:st.rota[w]}},getUpdateStatus:v=>({currentVersion:'6.0',updateAvailable:false,critical:false,message:'Portfolio demo is current.'})
+  getRota:w=>({weekStart:w,rows:st.rota[w]||[]}),saveRota:(w,e)=>{st.rota[w]=e||[];save();return {weekStart:w,rows:st.rota[w]}},getUpdateStatus:v=>({currentVersion:'6.1',updateAvailable:false,critical:false,message:'Portfolio demo is current.'})
  };
  return {call:(fn,args)=>{if(!api[fn])throw new Error('Demo API: '+fn+' is not implemented');return api[fn](...args)},reset:()=>{localStorage.removeItem(KEY);location.reload()}};
 })();
@@ -781,7 +806,7 @@ google.script={run:new Proxy({}, {get(_t,prop){if(prop==='withSuccessHandler')re
 </script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
-const APP_VERSION='6.0';
+const APP_VERSION='6.1';
 let BOOT={menu:[],allMenu:[],staff:[],allStaff:[],settings:{},dates:[],categories:[]};
 const money=n=>'£'+Number(n||0).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
 const pct=n=>(Number(n||0)*100).toFixed(1)+'%';
@@ -801,7 +826,7 @@ async function init(){
   toggleCustomRange();
   document.getElementById('headerDate').textContent=new Date().toLocaleDateString('en-GB');document.getElementById('appVersion').textContent='v'+APP_VERSION;
   document.getElementById('historyDate').innerHTML=BOOT.dates.map(d=>`<option>${d}</option>`).join('');
-  buildDailyForm(); renderMenu(); renderStaffManagement(); staffRows=[{}];renderStaffRows();prodGroups=[{category:'',items:[]}];renderProductGroups(); loadDashboard();
+  buildDailyForm(); renderMenu(); renderStaffManagement(); staffRows=[{}];renderStaffRows();prodGroups=[{category:'',items:[]}];renderProductGroups(); refreshProductSalesSearchCategories(); updateProductSearchStickyOffset(); loadDashboard();
   setTimeout(()=>checkForUpdates(false),800);clearInterval(updatePollTimer);updatePollTimer=setInterval(()=>checkForUpdates(false),300000);
 }
 function buildDailyForm(){
@@ -958,9 +983,14 @@ async function updateApp(){await checkForUpdates(true);if(!pendingUpdate?.update
 let prodGroups=[];
 
 function baseMenuItemId(id){return String(id||'').split('::')[0]}
+let productMenuLookupSource=null,productMenuLookup=null;
 function menuItemById(id){
-  const baseId=baseMenuItemId(id);
-  return BOOT.menu.find(m=>String(m.id)===baseId) || (BOOT.allMenu||[]).find(m=>String(m.id)===baseId);
+  const source=BOOT.allMenu||BOOT.menu||[];
+  if(productMenuLookupSource!==source){
+    productMenuLookupSource=source;
+    productMenuLookup=new Map(source.map(m=>[String(m.id),m]));
+  }
+  return productMenuLookup.get(baseMenuItemId(id));
 }
 function productDisplayName(m){return m ? (m.variant ? `${m.item} — ${m.variant}` : m.item) : '';}
 function splitSalesEntryLabels(m){
@@ -1051,9 +1081,24 @@ function refreshProductSalesSearchCategories(){
   const cats=[...new Set((BOOT.menu||[]).map(m=>String(m.category||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   el.innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option value="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" ${c===current?'selected':''}>${c}</option>`).join('');
 }
+/* Debounce Menu Master lookup so typing stays responsive. */
+let productSearchTimer=null;
+function scheduleProductSalesSearch(query){
+  clearTimeout(productSearchTimer);
+  productSearchTimer=setTimeout(()=>searchProductSalesMenu(query),130);
+}
+function updateProductSearchStickyOffset(){
+  const header=document.querySelector('header');
+  const nav=document.querySelector('nav');
+  let offset=header?.getBoundingClientRect().height||68;
+  if(window.matchMedia('(max-width:1000px)').matches && nav){
+    offset+=nav.getBoundingClientRect().height;
+  }
+  document.documentElement.style.setProperty('--ks-search-sticky-top',Math.ceil(offset+8)+'px');
+}
+window.addEventListener('resize',updateProductSearchStickyOffset,{passive:true});
 function searchProductSalesMenu(q){
   const box=document.getElementById('productSalesSearchResults'); if(!box)return;
-  refreshProductSalesSearchCategories();
   const term=String(q||'').trim().toLowerCase(),cat=document.getElementById('productSalesSearchCategory')?.value||'';
   if(!term&&!cat){box.style.display='none';box.innerHTML='';return;}
   const matches=(BOOT.menu||[]).filter(m=>m.active!==false&&(!cat||String(m.category||'')===cat)&&(!term||[m.item,m.till,m.category,m.id,m.variant].some(v=>String(v||'').toLowerCase().includes(term)))).slice(0,40);
@@ -1217,6 +1262,7 @@ function renderProductGroups(){
   productGroups.innerHTML=prodGroups.map((g,i)=>{
     const isOpenFood=String(g.category||'')==='Open Food';
     const items=(BOOT.menu||[]).filter(m=>String(m.category||'')===String(g.category||''));
+    const itemChoiceHtml=items.flatMap(m=>salesEntryChoices(m)).map(ch=>`<option value="${ch.value}">${ch.label}</option>`).join('');
     let categoryQty=0,categoryGross=0;
     const rows=(g.items||[]).map((row,j)=>{
       if(isOpenFood){
@@ -1236,9 +1282,9 @@ function renderProductGroups(){
       if(row.itemId||row.item){categoryQty+=qty;categoryGross+=actual}
       return `<tr id="prodRow-${i}-${j}" class="${duplicate?'duplicate-row':''}">
         <td>
-          <select onchange="setProductItem(${i},${j},this.value)">
+          <select class="product-item-chooser" data-group="${i}" data-row="${j}" onchange="setProductItem(${i},${j},this.value)">
             <option value="">Select item</option>
-            ${items.flatMap(m=>salesEntryChoices(m)).map(ch=>`<option value="${ch.value}" ${String(row.itemId||'')===String(ch.value)?'selected':''}>${ch.label}</option>`).join('')}
+            ${itemChoiceHtml}
           </select>
           <div id="prodPriceNote-${i}-${j}" class="price-note">${selected?`Menu price: ${money(price)}`:''}</div>
           <div id="prodDuplicate-${i}-${j}" class="duplicate-note">${duplicate?'Duplicate exact item — remove one before saving.':''}</div>
@@ -1279,6 +1325,10 @@ function renderProductGroups(){
       </div>
     </div>`;
   }).join('');
+  productGroups.querySelectorAll('.product-item-chooser').forEach(el=>{
+    const g=prodGroups[Number(el.dataset.group)],r=g?.items?.[Number(el.dataset.row)];
+    el.value=String(r?.itemId||'');
+  });
   renderProductSummary();
 }
 
@@ -1644,12 +1694,12 @@ async function saveMenuEditor(){
  const item=menuEditName.value.trim(),till=menuEditTill.value.trim()||item;let category=menuEditCategory.value;if(category==='__NEW__')category=menuNewCategory.value.trim();
  const type=menuEditType.value,variant=menuEditVariant.value.trim(),price=Number(menuEditPrice.value||0);
  if(!item){alert('Enter a menu item name.');return}if(!category){alert('Choose a category or enter a new category.');return}if(!Number.isFinite(price)||price<0){alert('Enter a valid price.');return}
- await call('saveMenuItem',{...(original||{}),id:id||undefined,item,till,category,type,variant,price,active:original?.active!==false});status('Menu item saved');closeMenuEditor();BOOT=await call('getBootstrapData');renderMenu();
+ await call('saveMenuItem',{...(original||{}),id:id||undefined,item,till,category,type,variant,price,active:original?.active!==false});status('Menu item saved');closeMenuEditor();BOOT=await call('getBootstrapData');renderMenu();refreshProductSalesSearchCategories();
 }
 async function toggleMenuItem(id,makeActive){
  const m=(BOOT.allMenu||[]).find(x=>String(x.id)===String(id)); if(!m)return;
  if(!makeActive&&!confirm(`Deactivate ${m.item}? Historical sales will remain.`))return;
- await call('setMenuItemActive',id,makeActive); status(makeActive?'Item reactivated':'Item deactivated');BOOT=await call('getBootstrapData');renderMenu();
+ await call('setMenuItemActive',id,makeActive); status(makeActive?'Item reactivated':'Item deactivated');BOOT=await call('getBootstrapData');renderMenu();refreshProductSalesSearchCategories();
 }
 async function deleteMenuItemUi(id){
  const m=(BOOT.allMenu||[]).find(x=>String(x.id)===String(id));if(!m)return;
